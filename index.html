@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<title>Paeds doses</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Paeds doses">
+<meta name="theme-color" content="#0E5460" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1418" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+  --bg:#F3F6F7; --surface:#FFFFFF; --surface-2:#E9EFF1; --line:#CFDADE;
+  --text:#101B1F; --muted:#5B6E75; --faint:#8E9DA3;
+  --brand:#0E5460; --brand-ink:#FFFFFF;
+  --arrest:#B42318; --arrest-bg:#FDECEA;
+  --hems:#0B6E4F; --hems-bg:#E6F4EE;
+  --rsi:#8A5A00; --rsi-bg:#FFF4DB;
+  --focus:#1A7FE0;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0B1418; --surface:#122027; --surface-2:#182B34; --line:#264049;
+    --text:#E7EFF2; --muted:#93A9B2; --faint:#607680;
+    --brand:#4FC3D6; --brand-ink:#04191E;
+    --arrest:#FF8A78; --arrest-bg:rgba(255,107,74,.10);
+    --hems:#6FE0B6; --hems-bg:rgba(91,214,176,.10);
+    --rsi:#F5C451; --rsi-bg:rgba(245,196,81,.10);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,system-ui,sans-serif;
+  font-feature-settings:"tnum" 1,"ss01" 1;
+  padding-bottom:calc(64px + env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px}
+
+/* sticky header */
+.top{
+  position:sticky;top:0;z-index:30;background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
+}
+.top .wrap{padding-top:10px;padding-bottom:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:1 0 auto;min-width:52px;min-height:44px;border:1px solid var(--line);
+  background:var(--surface);color:var(--text);border-radius:10px;
+  font:inherit;font-weight:600;font-size:15px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.chip small{display:block;font-weight:400;font-size:10.5px;color:var(--muted);line-height:1.1}
+.chip[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.chip[aria-pressed=true] small{color:inherit;opacity:.8}
+.chip:focus-visible,.btn:focus-visible,input:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+.field input{
+  width:100%;min-height:46px;padding:6px 10px;border:1px solid var(--line);border-radius:10px;
+  background:var(--surface);color:var(--text);font:inherit;font-size:20px;font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+.field input::placeholder{color:var(--faint);font-weight:400}
+.field.search{grid-column:1/-1}
+.field.search input{font-size:16px;font-weight:400}
+
+.readout{display:flex;align-items:center;gap:12px;margin-top:10px;min-height:44px}
+.readout .big{font-size:38px;font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--brand);white-space:nowrap}
+.readout .big small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:4px}
+.readout .note{font-size:13px;color:var(--muted);flex:1;min-width:0}
+.readout .note b{color:var(--text)}
+.btn{
+  min-height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);color:var(--text);font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;white-space:nowrap;
+}
+.btn:active{background:var(--surface-2)}
+
+/* compact state */
+.top.compact .expand{display:none}
+.top:not(.compact) .slim{display:none}
+.slim{display:flex;align-items:center;gap:10px;min-height:44px}
+.slim .big{font-size:22px;font-weight:700;color:var(--brand);letter-spacing:-.01em;white-space:nowrap}
+.slim .big small{font-size:11px;font-weight:500;color:var(--muted);margin-left:3px}
+.slim .meta{flex:1;min-width:0;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top.compact.editing .expand{display:block}
+.top.compact.editing .slim{display:none}
+
+/* sections */
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+section{margin-top:22px;scroll-margin-top:calc(70px + env(safe-area-inset-top))}
+section h2{font-size:15px;font-weight:700;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+section h2 i{width:10px;height:10px;border-radius:3px;background:var(--brand);flex:none}
+section .sub{margin:0 0 8px;font-size:12.5px;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center;
+  padding:10px 12px;border-top:1px solid var(--line);
+}
+.row:first-child{border-top:0}
+.row .name{grid-column:1;font-size:14px}
+.row .dose{grid-column:1;font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.row .vol{grid-column:1;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.row .none{grid-column:1;font-size:13px;color:var(--faint);font-style:italic}
+.row .dil{
+  grid-column:2;grid-row:1/4;align-self:center;
+  width:44px;height:44px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface-2);color:var(--brand);font:inherit;font-weight:700;font-size:15px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.row .dil[aria-expanded=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.row .detail{
+  grid-column:1/-1;margin-top:8px;padding:10px 12px;border-radius:8px;
+  background:var(--surface-2);font-size:13.5px;color:var(--text)
+}
+.row .detail h4{margin:0 0 4px;font-size:13px}
+.row .detail p{margin:0 0 6px}
+.row .detail p:last-child{margin:0}
+.row .detail .flag{color:var(--rsi);font-weight:600}
+@media (prefers-color-scheme:dark){ .row .detail .flag{color:var(--rsi)} }
+
+.arrest .card{border-color:color-mix(in srgb,var(--arrest) 45%,var(--line));background:var(--arrest-bg)}
+.arrest h2 i{background:var(--arrest)}
+.arrest .row .dose{color:var(--arrest)}
+.hems h2 i{background:var(--hems)}
+.hems .row .dose{color:var(--hems)}
+.hems .scope{font-size:11.5px;color:var(--faint)}
+.rsi h2 i{background:var(--rsi)}
+.rsi .row .dose{color:var(--rsi)}
+.rsi .card{background:var(--rsi-bg)}
+
+.consult{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.consult span{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:12px;color:var(--muted);background:var(--surface)}
+.consult span b{font-weight:600;color:var(--text)}
+
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th{text-align:left;font-weight:500;font-size:12px;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+tr.hit td{background:color-mix(in srgb,var(--brand) 14%,var(--surface));font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.grid .card{padding:10px 12px}
+.grid .card h3{margin:0 0 4px;font-size:12px;font-weight:500;color:var(--muted)}
+.grid .card .big{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+
+.warn{margin-top:10px;padding:8px 12px;border-left:3px solid var(--arrest);background:var(--arrest-bg);font-size:12.5px;border-radius:0 8px 8px 0}
+footer{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+footer p{margin:6px 0}
+
+/* bottom nav */
+nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:30;
+  background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav ul{list-style:none;margin:0 auto;padding:0;display:flex;max-width:820px}
+nav li{flex:1}
+nav a{
+  display:block;text-align:center;padding:9px 2px 8px;font-size:11px;font-weight:600;
+  color:var(--muted);text-decoration:none;min-height:48px;
+  -webkit-tap-highlight-color:transparent;
+}
+nav a i{display:block;width:22px;height:4px;border-radius:2px;margin:0 auto 5px;background:var(--line)}
+nav a.arr i{background:var(--arrest)} nav a.hem i{background:var(--hems)} nav a.rs i{background:var(--rsi)}
+nav a.on{color:var(--text)}
+nav[hidden]{display:none}
+
+@media (min-width:640px){
+  .fields{grid-template-columns:1fr 1fr 2fr}
+  .field.search{grid-column:auto}
+  .row{grid-template-columns:minmax(0,1fr) 9rem 12rem 44px}
+  .row .name{grid-column:1;grid-row:1}
+  .row .dose{grid-column:2;grid-row:1;font-size:17px}
+  .row .vol,.row .none{grid-column:3;grid-row:1}
+  .row .dil{grid-column:4;grid-row:1}
+  .hems .row{grid-template-columns:minmax(0,1fr) 16rem 44px}
+  .hems .row .dose{grid-column:2}.hems .row .dil{grid-column:3}
+  .rsi .row{grid-template-columns:minmax(0,1fr) 16rem}
+  .rsi .row .dose{grid-column:2}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+</head>
+<body>
+
+<div class="top" id="top">
+  <div class="wrap">
+    <div class="slim">
+      <span class="big" id="slimBig"></span>
+      <span class="meta" id="slimMeta"></span>
+      <button class="btn" id="slimBtn" type="button">Change</button>
+    </div>
+    <div class="expand">
+      <div class="chips" role="group" aria-label="Weight band">
+        <button class="chip" type="button" data-band="5">5<small>&lt;1 yr</small></button>
+        <button class="chip" type="button" data-band="10">10<small>1 yr</small></button>
+        <button class="chip" type="button" data-band="20">20<small>2–5 yr</small></button>
+        <button class="chip" type="button" data-band="30">30<small>6–10 yr</small></button>
+        <button class="chip" type="button" data-band="40">40<small>11–13 yr</small></button>
+        <button class="chip" type="button" data-band="adult">Adult<small>&gt;40 kg</small></button>
+      </div>
+      <div class="fields">
+        <div class="field"><label for="w">Weight (kg)</label><input id="w" type="number" inputmode="decimal" min="0" step="0.1" placeholder="—" enterkeyhint="done"></div>
+        <div class="field"><label for="a">Age (years)</label><input id="a" type="number" inputmode="decimal" min="0" max="18" step="0.5" placeholder="—" enterkeyhint="done"></div>
+        <div class="field search"><label for="q">Find a drug</label><input id="q" type="search" placeholder="ketamine, TXA, midaz…" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
+      </div>
+      <div class="readout" id="readout"></div>
+      <div id="doneWrap" hidden style="margin-top:8px"><button class="btn" id="doneBtn" type="button">Done</button></div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<nav id="nav" hidden>
+  <ul>
+    <li><a href="#s-arrest" class="arr"><i></i>Arrest</a></li>
+    <li><a href="#s-airway"><i></i>Airway</a></li>
+    <li><a href="#s-drugs"><i></i>Drugs</a></li>
+    <li><a href="#s-rsi" class="rs"><i></i>RSI</a></li>
+    <li><a href="#s-hems" class="hem"><i></i>HEMS</a></li>
+    <li><a href="#s-vitals"><i></i>Vitals</a></li>
+  </ul>
+</nav>
+
+<script>
+const EAS = {"arrest":[{"n":"Adrenaline IV","v":{"5":["0.05 mg","0.5 ml (1:10,000)",1],"10":["0.1 mg","1 ml (1:10,000)",1],"20":["0.2 mg","2 ml (1:10,000)",1],"30":["0.3 mg","3 ml (1:10,000)",1],"40":["0.4 mg","4 ml (1:10,000)",1]}},{"n":"Amiodarone IV","v":{"5":["25 mg","0.5 ml (undiluted)",null],"10":["50 mg","1 ml (undiluted)",null],"20":["100 mg","2 ml (undiluted)",null],"30":["150 mg","3 ml (undiluted)",null],"40":["200 mg","4 ml (undiluted)",null]}},{"n":"Manual defibrillation","v":{"5":["20–25 J","",null],"10":["40–50 J","",null],"20":["80–100 J","",null],"30":["120–150 J","",null],"40":["160–200 J","",null]}}],"airway":[{"n":"SGA (LMA)","v":{"5":["Size 1 (under 5 kg)","Cuff inflation 4 ml",null],"10":["Size 2 (10–20 kg)","Cuff inflation 10 ml",null],"20":["Size 2 (10–20 kg)","Cuff inflation 10 ml",null],"30":["Size 3 (30–50 kg)","Cuff inflation 20 ml",null],"40":["Size 3 (30–50 kg)","Cuff inflation 20 ml",null]}},{"n":"ETT (cuffed)","v":{"5":["Size 3","9 cm length at lips",null],"10":["Size 3 or 4","12 cm length at lips",null],"20":["Size 4 or 5","15 cm length at lips",null],"30":["Size 5 or 6","17 cm length at lips",null],"40":["Size 6 or 7","19 cm length at lips",null]}}],"drugs":[{"n":"Adrenaline IV (not cardiac arrest)","v":{"5":["0.001 mg","1 ml (1:1,000,000)",2],"10":["0.002 mg","2 ml (1:1,000,000)",2],"20":["0.004 mg","4 ml (1:1,000,000)",2],"30":["0.006 mg","6 ml (1:1,000,000)",2],"40":["0.008 mg","8 ml (1:1,000,000)",2]}},{"n":"Adrenaline IM","v":{"5":["0.05 mg","0.5 ml (1:10,000)",1],"10":["0.1 mg","0.1 ml (undiluted)",null],"20":["0.2 mg","0.2 ml (undiluted)",null],"30":["0.3 mg","0.3 ml (undiluted)",null],"40":["0.4 mg","0.4 ml (undiluted)",null]}},{"n":"Adrenaline IN (epistaxis)","v":{"5":null,"10":null,"20":["0.1 mg","1 ml (1:10,000)",1],"30":["0.1 mg","1 ml (1:10,000)",1],"40":["0.2 mg","2 ml (1:10,000)",1]}},{"n":"Cefazolin IV","v":{"5":["150 mg","1.5 ml (100 mg/ml)",3],"10":["250 mg","2.5 ml (100 mg/ml)",3],"20":["500 mg","5 ml (100 mg/ml)",3],"30":["750 mg","7.5 ml (100 mg/ml)",3],"40":["1000 mg","10 ml (100 mg/ ml)",3]}},{"n":"Ceftriaxone IV","v":{"5":["300 mg","1.5 ml (200 mg/ml)",4],"10":["500 mg","2.5 ml (200 mg/ml)",4],"20":["1 g","5 ml (200 mg/ml)",4],"30":["1.5 g","7.5 ml (200 mg/ml)",4],"40":["2 g","10 ml (200 mg/ml)",4]}},{"n":"Ceftriaxone IM","v":{"5":["300 mg","0.75 ml (400 mg/ml)",5],"10":["500 mg","1.25 ml (400 mg/ml)",5],"20":["1 g","2.5 ml (400 mg/ml)",5],"30":["1.5 g","3.75 ml (400 mg/ml)",5],"40":["2 g","5 ml (400 mg/ml)",5]}},{"n":"Fentanyl IV (analgesia)","v":{"5":["1–5 mcg","1–5 ml (1 mcg/ml)",7],"10":["2–10 mcg","2–10 ml (1 mcg/ml)",7],"20":["5–20 mcg","5–20 ml (1 mcg/ml)",7],"30":["10–30 mcg","1–3 ml (10 mcg/ml)",6],"40":["10–40 mcg","1–4 ml (10 mcg/ml)",6]}},{"n":"Fentanyl IM","v":{"5":["5 mcg","0.1 ml (undiluted)",null],"10":["10 mcg","0.2 ml (undiluted)",null],"20":["20 mcg","0.4 ml (undiluted)",null],"30":["30 mcg","0.6 ml (undiluted)",null],"40":["40 mcg","0.8 ml (undiluted)",null]}},{"n":"Fentanyl IN","v":{"5":["5 mcg","0.1 ml (undiluted)",null],"10":["15 mcg","0.3 ml (undiluted)",null],"20":["30 mcg","0.6 ml (undiluted)",null],"30":["45 mcg","0.9 ml (undiluted)",null],"40":["60 mcg","1.2 ml (undiluted)",null]}},{"n":"Fentanyl/ketamine IV (post intubation)","v":{"5":["5 mcg/5 mg","0.5 ml",8],"10":["10 mcg/10 mg","1 ml",8],"20":["20 mcg/20 mg","2 ml",8],"30":["30 mcg/30 mg","3 ml",8],"40":["40 mcg/40 mg","4 ml",8]}},{"n":"Glucagon IM","v":{"5":["0.5 mg","0.5 ml (undiluted)",null],"10":["0.5 mg","0.5 ml (undiluted)",null],"20":["0.5–1 mg","0.5–1 ml (undiluted)",null],"30":["1 mg","1 ml (undiluted)",null],"40":["1 mg","1 ml (undiluted)",null]}},{"n":"10% glucose IV","v":{"5":["2 ml/kg","10 ml",null],"10":["2 ml/kg","20 ml",null],"20":["2 ml/kg","40 ml",null],"30":["2 ml/kg","60 ml",null],"40":["2 ml/kg","80 ml",null]}},{"n":"Hydrocortisone IV","v":{"5":["10 mg","1 ml (10 mg/ml)",9],"10":["25 mg","2.5 ml (10 mg/ml)",9],"20":["50 mg","5 ml (10 mg/ml)",9],"30":["75 mg","7.5 ml (10 mg/ml)",9],"40":["100 mg","10 ml (10 mg/ml)",9]}},{"n":"Hydrocortisone IM","v":{"5":["10 mg","0.2 ml (undiluted)",null],"10":["25 mg","0.5 ml (undiluted)",null],"20":["50 mg","1 ml (undiluted)",null],"30":["75 mg","1.5 ml (undiluted)",null],"40":["100 mg","2 ml (undiluted)",null]}},{"n":"Ibuprofen liquid PO","v":{"5":["50 mg","2.5 ml (20 mg/ml)",null],"10":["100 mg","5 ml (20 mg/ml)",null],"20":["150 mg","7.5 ml (20 mg/ml)",null],"30":["200 mg","10 ml (20 mg/ml)",null],"40":["300 mg","15 ml (20 mg/ml)",null]}},{"n":"Ibuprofen tablet PO","v":{"5":null,"10":["100 mg","½ tablet",null],"20":["100 mg","½ tablet",null],"30":["200 mg","1 tablet",null],"40":["300 mg","1½ tablets",null]}},{"n":"Ketamine IV (analgesia)","v":{"5":null,"10":["2 mg","2 ml (1 mg/ml)",10],"20":["4 mg","4 ml (1 mg/ml)",10],"30":["6 mg","6 ml (1 mg/ml)",10],"40":["8 mg","8 ml (1 mg/ml)",10]}},{"n":"Ketamine IV (dissociation)","v":{"5":null,"10":["10 mg","1 ml (10 mg/ml)",11],"20":["20 mg","2 ml (10 mg/ml)",11],"30":["30 mg","3 ml (10 mg/ml)",11],"40":["40 mg","4 ml (10 mg/ml)",11]}},{"n":"Ketamine IM/PO (analgesia)","v":{"5":null,"10":["5 mg","0.05 ml (undiluted)",null],"20":["10 mg","0.1 ml (undiluted)",null],"30":["15 mg","0.15 ml (undiluted)",null],"40":["20 mg","0.2 ml (undiluted)",null]}},{"n":"Ketamine IM (dissociation)","v":{"5":null,"10":["50 mg","0.5 ml (undiluted)",null],"20":["100 mg","1 ml (undiluted)",null],"30":["150 mg","1.5 ml (undiluted)",null],"40":["200 mg","2 ml (undiluted)",null]}},{"n":"Levetiracetam IV","v":{"5":["250 mg","2.5 ml (100 mg/ml)",12],"10":["500 mg","5 ml (100 mg/ml)",12],"20":["1000 mg","10 ml (100 mg/ml)",12],"30":["1500 mg","15 ml (100 mg/ml)",12],"40":["2000 mg","20 ml (100 mg/ml)",12]}},{"n":"1% lignocaine IO","v":{"5":["5 mg","0.5 ml (undiluted)",null],"10":["10 mg","1 ml (undiluted)",null],"20":["20 mg","2 ml (undiluted)",null],"30":["30 mg","3 ml (undiluted)",null],"40":["40 mg","4 ml (undiluted)",null]}},{"n":"1% lignocaine SC","v":{"5":["15 mg (max)","1.5 ml (max)",null],"10":["30 mg (max)","3 ml (max)",null],"20":["60 mg (max)","6 ml (max)",null],"30":["90 mg (max)","9 ml (max)",null],"40":["120 mg (max)","12 ml (max)",null]}},{"n":"Loratadine PO","v":{"5":null,"10":["10 mg","1 tablet",null],"20":["10 mg","1 tablet",null],"30":["10 mg","1 tablet",null],"40":["20 mg","2 tablets",null]}},{"n":"Magnesium IV","v":{"5":null,"10":null,"20":["4 mmol","4 ml (1 mmol/ml)",13],"30":["6 mmol","6 ml (1 mmol/ml)",13],"40":["8 mmol","8 ml (1 mmol/ml)",13]}},{"n":"Metaraminol IV","v":{"5":["0.05–0.1 mg","0.5–1 ml (0.1 mg/ml)",14],"10":["0.1–0.2 mg","1–2 ml (0.1 mg/ml)",14],"20":["0.2–0.4 mg","2–4 ml (0.1 mg/ml)",14],"30":["0.3–0.6 mg","3–6 ml (0.1 mg/ml)",14],"40":["0.4–0.8 mg","4–8 ml (0.1 mg/ml)",14]}},{"n":"Midazolam IV (seizures)","v":{"5":["0.5 mg","0.5 ml (1 mg/ml)",15],"10":["1 mg","1 ml (1 mg/ml)",15],"20":["2 mg","2 ml (1 mg/ml)",15],"30":["3 mg","3 ml (1 mg/ml)",15],"40":["4 mg","4 ml (1 mg/ml)",15]}},{"n":"Midazolam IM (seizures)","v":{"5":["1 mg","0.2 ml (undiluted)",null],"10":["2 mg","0.4 ml (undiluted)",null],"20":["4 mg","0.8 ml (undiluted)",null],"30":["6 mg","1.2 ml (undiluted)",null],"40":["8 mg","1.6 ml (undiluted)",null]}},{"n":"Morphine IV","v":{"5":["0.25 mg","0.25 ml (1 mg/ml)",16],"10":["0.5 mg","0.5 ml (1 mg/ml)",16],"20":["1 mg","1 ml (1 mg/ml)",16],"30":["1.5 mg","1.5 ml (1 mg/ml)",16],"40":["2 mg","2 ml (1 mg/ml)",16]}},{"n":"Morphine IM/SC","v":{"5":["1 mg","0.1 ml (undiluted)",null],"10":["2 mg","0.2 ml (undiluted)",null],"20":["4 mg","0.4 ml (undiluted)",null],"30":["6 mg","0.6 ml (undiluted)",null],"40":["8 mg","0.8 ml (undiluted)",null]}},{"n":"Naloxone IV","v":{"5":["0.05 mg","0.5 ml (0.1 mg/ml)",17],"10":["0.1 mg","1 ml (0.1 mg/ml)",17],"20":["0.1–0.2 mg","1–2 ml (0.1 mg/ml)",17],"30":["0.1–0.3 mg","1–3 ml (0.1 mg/ml)",17],"40":["0.1–0.4 mg","1–4 ml (0.1 mg/ml)",17]}},{"n":"Naloxone IM","v":{"5":["0.1 mg","0.25 ml (undiluted)",null],"10":["0.2 mg","0.5 ml (undiluted)",null],"20":["0.4 mg","1 ml (undiluted)",null],"30":["0.6 mg","1.5 ml (undiluted)",null],"40":["0.8 mg","2 ml (undiluted)",null]}},{"n":"Ondansetron IV","v":{"5":null,"10":["2 mg","1 ml (undiluted)",null],"20":["4 mg","2 ml (undiluted)",null],"30":["6 mg","3 ml (undiluted)",null],"40":["8 mg","4 ml (undiluted)",null]}},{"n":"Ondansetron IM","v":{"5":null,"10":["1 mg","0.5 ml (undiluted)",null],"20":["2 mg","1 ml (undiluted)",null],"30":["3 mg","1.5 ml (undiluted)",null],"40":["4 mg","2 ml (undiluted)",null]}},{"n":"Paracetamol liquid PO","v":{"5":["75 mg","1.5 ml (50 mg/ml)",null],"10":["150 mg","3 ml (50 mg/ml)",null],"20":["250 mg","5 ml (50 mg/ml)",null],"30":["375 mg","7.5 ml (50 mg/ml)",null],"40":["500 mg","10 ml (50 mg/ml)",null]}},{"n":"Paracetamol tablet PO","v":{"5":null,"10":null,"20":["250 mg","½ tablet",null],"30":["250 mg","½ tablet",null],"40":["500 mg","1 tablet",null]}},{"n":"Prednisolone PO","v":{"5":["5 mg","1 ml (5 mg/ml)",null],"10":["10 mg","2 ml (5 mg/ml)",null],"20":["20 mg","4 ml (5 mg/ml)",null],"30":["30 mg","6 ml (5 mg/ml)",null],"40":["40 mg","8 ml (5 mg/ml)",null]}},{"n":"Prednisone PO","v":{"5":null,"10":["10 mg","½ tablet",null],"20":["20 mg","1 tablet",null],"30":["30 mg","1½ tablets",null],"40":["40 mg","2 tablets",null]}},{"n":"Rocuronium IV","v":{"5":["5 mg","0.5 ml (undiluted)",null],"10":["10 mg","1 ml (undiluted)",null],"20":["20 mg","2 ml (undiluted)",null],"30":["30 mg","3 ml (undiluted)",null],"40":["40 mg","4 ml (undiluted)",null]}},{"n":"0.75% ropivacaine SC","v":{"5":["11.25 mg (max)","1.5 ml (max)",null],"10":["22.5 mg (max)","3 ml (max)",null],"20":["45 mg (max)","6 ml (max)",null],"30":["67.5 mg (max)","9 ml (max)",null],"40":["90 mg (max)","12 ml (max)",null]}},{"n":"0.9% sodium chloride IV","v":{"5":["20 ml/kg","100 ml",null],"10":["20 ml/kg","200 ml",null],"20":["20 ml/kg","400 ml",null],"30":["20 ml/kg","600 ml",null],"40":["20 ml/kg","800 ml",null]}},{"n":"8.4% sodium bicarbonate","v":{"5":["10 mmol","10 ml (1 mmol/ml)",null],"10":["20 mmol","20 ml (1 mmol/ml)",null],"20":["40 mmol","40 ml (1 mmol/ml)",null],"30":["60 mmol","60 ml (1 mmol/ml)",null],"40":["80 mmol","80 ml (1 mmol/ml)",null]}},{"n":"Tranexamic acid IN (epistaxis)","v":{"5":null,"10":null,"20":["100 mg","1 ml (undiluted)",null],"30":["100 mg","1 ml (undiluted)",null],"40":["200 mg","2 ml (undiluted)",null]}},{"n":"Tranexamic acid IV (non-traumatic bleeding)","v":{"5":["100 mg","1 ml (undiluted)",null],"10":["200 mg","2 ml (undiluted)",null],"20":["400 mg","4 ml (undiluted)",null],"30":["600 mg","6 ml (undiluted)",null],"40":["800 mg","8 ml (undiluted)",null]}},{"n":"Tranexamic acid IV (bleeding from trauma)","v":{"5":["200 mg","2 ml (undiluted)",null],"10":["400 mg","4 ml (undiluted)",null],"20":["800 mg","8 ml (undiluted)",null],"30":["1200 mg","12 ml (undiluted)",null],"40":["1600 mg","16 ml (undiluted)",null]}}]};
+
+const DIL = {
+1:["Adrenaline 1:10,000 (0.1 mg/ml)","Draw up 1 ml of adrenaline from a 1 mg/ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
+2:["Adrenaline IV 1:1,000,000 (0.001 mg/ml)","Add 1 ml of adrenaline (1 mg/ml) to a 1 litre bag of 0.9% sodium chloride. Shake well and label. Give the table volume as an IV bolus. An IV infusion may be used if aged 5 years or older."],
+3:["Cefazolin IV 100 mg/ml","Add about 4 ml of 0.9% sodium chloride to a 1 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."],
+4:["Ceftriaxone IV 200 mg/ml","Add about 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."],
+5:["Ceftriaxone IM 400 mg/ml","Add 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved — total volume 5 ml. Draw 2.5 ml into each of two syringes. Discard what is not needed. One syringe into each lateral thigh; if unsuitable, each lateral upper arm."],
+6:["Fentanyl IV 10 mcg/ml — weight rounded to 30 kg or more","Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
+7:["Fentanyl IV 1 mcg/ml — weight rounded to 20 kg or less","Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Add to a 100 ml bag of 5% glucose. Shake well and label. Give the table volume as an IV bolus."],
+8:["Fentanyl and ketamine IV, post intubation","Draw up 200 mcg of fentanyl (two 100 mcg/2 ml ampoules) and 200 mg of ketamine (one 200 mg/2 ml ampoule) into the same syringe. Dilute to a total of 20 ml — 10 mcg/ml fentanyl with 10 mg/ml ketamine. Give the table volume as an IV bolus."],
+9:["Hydrocortisone IV 10 mg/ml","Draw up 100 mg from a 100 mg/2 ml vial. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume IV over 1–2 minutes."],
+10:["Ketamine IV for analgesia 1 mg/ml","Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule and add to a 100 ml bag of 5% glucose — 1 mg/ml. Draw up the table volume, dilute further to a total of 20 ml with 0.9% sodium chloride, and give IV over about 15 minutes."],
+11:["Ketamine IV for dissociation 10 mg/ml","Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
+12:["Levetiracetam","Draw the table volume from 500 mg/5 ml ampoule(s). Give IV over 5 minutes, preferably into a running line."],
+13:["Magnesium IV 1 mmol/ml","Draw up 5 ml from a 10 mmol/5 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Discard what is not needed. Give IV over about 15 minutes, preferably into a running line."],
+14:["Metaraminol IV 0.1 mg/ml","Draw up 1 ml from a 10 mg/1 ml ampoule and add to a 100 ml bag of 5% glucose — 0.1 mg/ml. Shake well and label. Give the table volume as an IV bolus."],
+15:["Midazolam IV 1 mg/ml","Draw up 1 ml from a 15 mg/3 ml ampoule. Dilute to a total of 5 ml with 0.9% sodium chloride. Discard what is not needed. Give the table volume as an IV bolus."],
+16:["Morphine IV 1 mg/ml","Draw up 1 ml from a 10 mg/1 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
+17:["Naloxone IV 0.1 mg/ml","Draw up 1 ml from a 0.4 mg/1 ml ampoule. Dilute to a total of 4 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."]
+};
+
+const f = n => String(Math.round(n*100)/100);
+const cap = (n,m) => Math.min(n,m);
+
+/* HEMS Clinical Ltd CPG extensions v1 (26 Jun 2026). Per-kg on actual weight. */
+const HEMS = [
+ {n:"Cefazolin IV (under 12 years)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(20*w)} mg`,
+  rule:"20 mg/kg for all patients.",
+  prep:"1 g ampoule plus about 4 ml 0.9% NaCl, shake until dissolved. Draw up and dilute to 10 ml (100 mg/ml). Discard to the required dose. IV over 1–2 minutes into a running line.",
+  flag:"Differs from the EAS band table (30 mg/kg). Seek clinical advice on 0800HEMSMD before commencement."},
+ {n:"Hypertonic saline 3%",scope:"ICP · CCP",calc:w=>`${f(cap(5*w,250))} ml over 30 min`,
+  rule:"5 ml/kg over 30 minutes, not exceeding 250 ml.",
+  prep:"Add 26 ml of 23.4% NaCl to a 250 ml bag of 0.9% NaCl — 276 ml at 3%. Draw the required volume into syringes. Dedicated line; never with blood or blood products. IV or IO."},
+ {n:"Atropine IV (bradycardia with intubation)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(20*w)} mcg — ${f(20*w/100)} ml`,
+  rule:"20 mcg/kg of 100 mcg/ml. May repeat every 10–15 minutes to a maximum total of 40 mcg/kg.",
+  prep:"Draw 600 mcg into a 10 ml syringe and dilute to 6 ml with 0.9% NaCl — 100 mcg/ml.",
+  flag:"Consider consultation with 0800HEMSMD."},
+ {n:"Hydrocortisone IV (asthma)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(cap(4*w,100))} mg — ${f(cap(4*w,100)/50)} ml`,
+  rule:"4 mg/kg IV to a maximum of 100 mg. Alternatively 25–50 mg under 5 years, 50–100 mg over 5 years. For adrenal crisis use the national EAS dose.",
+  prep:"Force the 2 ml sterile water diluent into the vial, shake until dissolved, draw up — 50 mg/ml. Undiluted IV or IM."},
+ {n:"Promethazine IV/IM (over 5 years)",scope:"ICP · CCP",calc:w=>`${f(cap(w,12.5))} mg — ${f(cap(w,12.5)/5)} ml`,
+  rule:"1 mg/kg to a maximum of 12.5 mg, one dose only.",
+  prep:"50 mg/2 ml ampoule diluted to 10 ml with 0.9% NaCl — 5 mg/ml. IV over 1 minute to avoid hypotension.",
+  flag:"Contraindicated under 6 years. If IM, deep IM only. Never SC."},
+ {n:"Cyclizine IV/IM",scope:"Paramedic · ICP · CCP",calc:(w,a)=>{const c=(a!=null&&a>=6)?50:25;return `${f(cap(.5*w,c))}–${f(cap(w,c))} mg`;},
+  rule:"0.5–1 mg/kg. Maximum 25 mg at 1–5 years, 50 mg at 6–16 years.",
+  prep:"Draw up the ampoule — 50 mg/ml. Do not dilute. Slow IV or IM.",
+  flag:"The ceiling shown depends on the age entered; without an age the 25 mg cap is used."},
+ {n:"Magnesium IV (asthma)",scope:"ICP · CCP",calc:w=>`${f(.1*w)} ml (${f(.2*w)} mmol)`,
+  rule:"0.1 ml/kg of 50% magnesium sulphate (0.2 mmol/kg). Infuse at 80 ml/hr — 20 ml over 15 minutes.",
+  prep:"Draw up 0.1 ml/kg and dilute to 20 ml with 0.9% NaCl. Not in the same line as sodium bicarbonate or calcium chloride."},
+ {n:"Adrenaline infusion",scope:"ICP · CCP",calc:w=>`${f(.1*w)}–${f(w)} ml/hr`,
+  rule:"1–10 mcg/kg/hr (0.1–1 ml/kg/hr) of 10 mcg/ml, titrated to blood pressure.",
+  prep:"Draw up 0.5 mg (0.5 ml) adrenaline into a 50 ml syringe and dilute to 50 ml with 0.9% NaCl — 10 mcg/ml."},
+ {n:"Metaraminol infusion",scope:"ICP · CCP",calc:w=>`${f(.1*w)}–${f(.2*w)} ml/hr`,
+  rule:"0.1–0.2 ml/kg/hr of metaraminol 0.1 mg/ml.",
+  prep:"Add 10 mg (1 ml) metaraminol to a 100 ml bag of 0.9% NaCl. Draw 10 ml into a 10 ml syringe — 0.1 mg/ml.",
+  flag:"Seek clinical advice on 0800HEMSMD before continuation or commencement."},
+ {n:"Fentanyl infusion",scope:"ICP · CCP",calc:w=>`${f(.2*w)}–${f(.4*w)} ml/hr`,
+  rule:"2–4 mcg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mcg/ml.",
+  prep:"Draw up 200 mcg (4 ml) into a 20 ml syringe and dilute to 20 ml with 0.9% NaCl — 10 mcg/ml."},
+ {n:"Fentanyl / ketamine infusion",scope:"ICP · CCP",calc:w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
+  rule:"Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with ketamine 2 mg/kg/hr), up to 0.5 ml/kg/hr.",
+  prep:"200 mcg fentanyl (4 ml) plus 200 mg ketamine (2 ml) into a 20 or 30 ml syringe, diluted to 20 ml with 0.9% NaCl — fentanyl 10 mcg/ml with ketamine 10 mg/ml."},
+ {n:"Fentanyl / midazolam infusion",scope:"ICP · CCP",calc:w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
+  rule:"Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with midazolam 0.2 mg/kg/hr), up to 0.5 ml/kg/hr.",
+  prep:"300 mcg fentanyl (6 ml) plus 30 mg midazolam (6 ml) into a 30 or 50 ml syringe, diluted to 30 ml with 0.9% NaCl — fentanyl 10 mcg/ml with midazolam 1 mg/ml."},
+ {n:"Ketamine infusion",scope:"Paramedic · ICP · CCP",calc:w=>`load ${f(cap(.25*w,25))} mg · ${f(.5*w)}–${f(w)} ml/hr`,
+  rule:"Loading dose up to 0.25 mg/kg (max 25 mg) over 15 minutes. Then 0.5 mg/kg/hr, up to 1 mg/kg/hr, of 1 mg/ml.",
+  prep:"Add 100 mg (1 ml) ketamine to a 100 ml bag of 0.9% NaCl; draw into a 20 or 30 ml syringe — 1 mg/ml.",
+  flag:"Contraindicated under one year of age."},
+ {n:"Propofol infusion",scope:"ICP · CCP",calc:w=>`${f(cap(.2*w,20))}–${f(cap(.4*w,20))} ml/hr`,
+  rule:"2–4 mg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mg/ml, maximum 20 ml/hr.",
+  prep:"Draw up 200 mg (20 ml) undiluted — 10 mg/ml.",
+  flag:"Seek clinical advice on 0800HEMSMD before continuation or commencement."}
+];
+const CONSULT = [["Noradrenaline","not for paediatric use"],["Phenylephrine","not for paediatric use"],["Isoprenaline","not for paediatric use"],["GTN infusion","not for paediatric use"],["Hydralazine","not for paediatric use"],["Amiodarone infusion","not for paediatric use"],["Labetalol","consult 0800HEMSMD"],["Calcium chloride","consult 0800HEMSMD"],["Heparin","consult 0800HEMSMD"],["Insulin","consult 0800HEMSMD"]];
+
+/* RSI — supplied by the user, not in either source document */
+const RSI = [["Ketamine IV", w=>`${f(2*w)} mg`,"2 mg/kg"],["Rocuronium IV", w=>`${f(2*w)} mg`,"2 mg/kg"],["Fentanyl IV", w=>`${f(2*w)} mcg`,"2 mcg/kg"]];
+
+const VITALS = [["Under 1 year","110–160","30–40","70–90"],["1–2 years","100–150","25–35","80–95"],["2–5 years","95–140","25–30","80–100"],["5–12 years","80–120","20–25","90–110"],["Over 12 years","60–100","15–20","100–120"]];
+const BAND_AGE = {5:"under 1 year",10:"1 year",20:"2–5 years",30:"6–10 years",40:"11–13 years"};
+
+/* ---------- state ---------- */
+const $ = s => document.querySelector(s);
+const state = { weight:null, age:null, q:"", open:null, openH:null, editing:false };
+
+function bandFor(w){ if(w==null||!(w>0)) return null; if(w>40) return "adult"; for(const b of [5,10,20,30,40]) if(w<=b) return b; return 40; }
+function vitalsFor(a){ if(a==null||isNaN(a)) return null; if(a<1) return 0; if(a<2) return 1; if(a<5) return 2; if(a<12) return 3; return 4; }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+/* ---------- render ---------- */
+function rowHTML(r, band, sec){
+  const cell = r.v[band];
+  const key = sec+"|"+r.n;
+  if(!cell) return `<div class="row"><span class="name">${esc(r.n)}</span><span class="none">Not in table at this weight</span></div>`;
+  const [dose, vol, dil] = cell;
+  const open = state.open===key;
+  return `<div class="row">
+    <span class="name">${esc(r.n)}</span>
+    <span class="dose">${esc(dose)}</span>
+    ${vol?`<span class="vol">${esc(vol)}</span>`:""}
+    ${dil?`<button class="dil" type="button" data-key="${esc(key)}" data-dil="${dil}" aria-expanded="${open}" aria-label="Preparation ${dil} for ${esc(r.n)}">${dil}</button>`:""}
+    ${open&&dil?`<div class="detail"><h4>${esc(DIL[dil][0])}</h4><p>${esc(DIL[dil][1])}</p></div>`:""}
+  </div>`;
+}
+
+function section(id, cls, title, sub, body){
+  return `<section id="s-${id}" class="${cls}"><h2><i></i>${title}</h2>${sub?`<p class="sub">${sub}</p>`:""}${body}</section>`;
+}
+
+function render(){
+  const w = state.weight, a = state.age, band = bandFor(w);
+  const has = band!==null, adult = band==="adult";
+  const q = state.q.trim().toLowerCase();
+  const match = r => !q || r.n.toLowerCase().includes(q);
+
+  // chips
+  document.querySelectorAll(".chip").forEach(c=>{
+    const b = c.dataset.band==="adult"?"adult":Number(c.dataset.band);
+    c.setAttribute("aria-pressed", String(has && band===b));
+  });
+
+  // readout
+  let ro = "";
+  if(!has){ ro = `<span class="note">Tap a band, or enter a weight or age.</span>`; }
+  else if(adult){ ro = `<span class="big">Adult</span><span class="note">Over 40 kg — adult doses usually apply. Use judgement where a dose could harm, e.g. paracetamol. If in doubt, give the paediatric dose.</span>`; }
+  else {
+    const est = state.fromAge ? `Age ${f(a)} → estimated <b>${f(w)} kg</b> (formula tends to underestimate). ` : "";
+    ro = `<span class="big">${band}<small>kg band</small></span><span class="note">${est}<b>${f(w)} kg</b> rounded up to the ${band} kg band, ${BAND_AGE[band]}. HEMS and RSI use the actual ${f(w)} kg.${w<5?" <b>Neonate</b> — low threshold for clinical advice.":""}</span>`;
+  }
+  $("#readout").innerHTML = ro;
+  $("#slimBig").innerHTML = !has?"":adult?"Adult":`${band}<small>kg band</small>`;
+  $("#slimMeta").textContent = !has?"No weight entered":adult?"over 40 kg":`${f(w)} kg · ${BAND_AGE[band]}${q?" · “"+state.q+"”":""}`;
+  $("#slimBtn").textContent = has?"Change":"Enter weight";
+
+  // main
+  let html = "";
+  if(!has){
+    html = `<div class="empty">Doses appear here once a weight or age is entered.</div>
+      <div class="warn">Uncontrolled copy. Check values against the current guideline at cpg.stjohn.org.nz. EAS doses are published band values, not per-kg calculations.</div>`;
+  } else {
+    if(!adult){
+      html += section("arrest","arrest","Cardiac arrest","Defibrillation 4 J/kg, initial and subsequent. If the level is unavailable, select the next highest.",
+        `<div class="card">${EAS.arrest.map(r=>rowHTML(r,band,"ar")).join("")}</div>`);
+      let airExtra = "";
+      if(a!=null && !isNaN(a)){
+        const size = a<1?"3–4 mm":f(a/4+3.5)+" mm";
+        const len = a<1?(`${f(6+w)} cm newborn · ETT size × 3`):f(a/2+12)+" cm";
+        airExtra = `<div class="grid" style="margin-top:8px"><div class="card"><h3>ETT size from age</h3><div class="big">${size}</div></div><div class="card"><h3>Length at lips from age</h3><div class="big">${len}</div></div></div>`;
+      }
+      html += section("airway","","Airway","Children may need a different size than predicted.",
+        `<div class="card">${EAS.airway.map(r=>rowHTML(r,band,"aw")).join("")}</div>${airExtra}`);
+      const drugs = EAS.drugs.filter(match);
+      html += section("drugs","","Drugs — EAS 7.2 band table",`Published values for the ${band} kg band. Tap a number for preparation.`,
+        `<div class="card">${drugs.length?drugs.map(r=>rowHTML(r,band,"dr")).join(""):`<div class="row"><span class="none">Nothing matches “${esc(state.q)}”.</span></div>`}</div>`);
+    }
+    html += section("rsi","rsi","Rapid sequence intubation",`Calculated on ${f(w)} kg. These per-kg figures were supplied by you and are in neither source document — confirm against the RSI guideline.`,
+      `<div class="card">${RSI.map(([n,c,rule])=>`<div class="row"><span class="name">${n} <span class="vol">${rule}</span></span><span class="dose">${c(w)}</span></div>`).join("")}</div>`);
+    const hems = HEMS.filter(match);
+    html += section("hems","hems","HEMS extensions",`Calculated on the actual ${f(w)} kg, not the band. Tap a row for rule and preparation.`,
+      `<div class="card">${hems.length?hems.map(r=>{const open=state.openH===r.n;return `<div class="row">
+        <span class="name">${esc(r.n)}<br><span class="scope">${esc(r.scope)}</span></span>
+        <span class="dose">${esc(r.calc(w,a))}</span>
+        <button class="dil" type="button" data-hems="${esc(r.n)}" aria-expanded="${open}" aria-label="Details for ${esc(r.n)}">${open?"–":"+"}</button>
+        ${open?`<div class="detail"><h4>Rule</h4><p>${esc(r.rule)}</p><h4>Preparation</h4><p>${esc(r.prep)}</p>${r.flag?`<p class="flag">${esc(r.flag)}</p>`:""}</div>`:""}
+      </div>`;}).join(""):`<div class="row"><span class="none">Nothing matches “${esc(state.q)}”.</span></div>`}</div>
+      <div class="consult">${CONSULT.map(([n,s])=>`<span><b>${n}</b> — ${s}</span>`).join("")}</div>`);
+    const vi = vitalsFor(a);
+    html += section("vitals","","Vital signs", vi==null?"Enter an age to highlight a row.":"",
+      `<table><thead><tr><th>Age</th><th>Heart rate</th><th>Resp rate</th><th>Systolic BP</th></tr></thead><tbody>${VITALS.map((r,i)=>`<tr class="${i===vi?"hit":""}">${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+    html += section("formulae","","Estimation formulae","",
+      `<div class="grid">
+        <div class="card"><h3>Weight, under 1 year</h3><div class="big">5 kg</div></div>
+        <div class="card"><h3>Weight, 1–10 years</h3><div class="big">(age + 4) × 2</div></div>
+        <div class="card"><h3>Weight, 11–14 years</h3><div class="big">age × 3</div></div>
+        <div class="card"><h3>Cuffed ETT, 1 year and over</h3><div class="big">(age ÷ 4) + 3.5</div></div>
+        <div class="card"><h3>Length at lips, newborn</h3><div class="big">6 + weight</div></div>
+        <div class="card"><h3>Length at lips, 1 year and over</h3><div class="big">(age ÷ 2) + 12</div></div>
+      </div>`);
+    html += `<div class="warn">Uncontrolled copy. Check values against the current guideline at cpg.stjohn.org.nz. EAS doses are published band values, not per-kg calculations.</div>`;
+  }
+  html += `<footer>
+    <p>CPG EAS 7.2 Paediatric Equipment and Drug Doses, St John New Zealand, version 1.0.5 (28 Oct 2024), export dated 03 Aug 2026. HEMS Clinical Ltd CPG Extensions to Standing Orders, version 1, 26 Jun 2026.</p>
+    <p>The EAS tables do not carry all administration information; read with the medicines section of the comprehensive edition. Infant GCS omitted — not legible in the supplied file.</p>
+    <p>Weight is deliberately not remembered between openings.</p>
+  </footer>`;
+  $("#main").innerHTML = html;
+  $("#nav").hidden = !has || adult;
+}
+
+/* ---------- events ---------- */
+function setFromWeight(v){ state.fromAge=false; state.weight = v===""?null:parseFloat(v); render(); }
+function estimate(a){ if(a==null||isNaN(a)) return null; if(a<1) return 5; if(a<=10) return (a+4)*2; if(a<=14) return a*3; return null; }
+
+$("#w").addEventListener("input", e=>{ setFromWeight(e.target.value); });
+$("#a").addEventListener("input", e=>{
+  state.age = e.target.value===""?null:parseFloat(e.target.value);
+  if($("#w").value==="" && state.age!=null){ const est=estimate(state.age); if(est!=null){ state.weight=est; state.fromAge=true; } }
+  render();
+});
+$("#q").addEventListener("input", e=>{ state.q=e.target.value; render(); });
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click", ()=>{
+  const b = c.dataset.band;
+  const w = b==="adult"?45:Number(b);
+  $("#w").value = w; state.fromAge=false; state.weight=w; render();
+}));
+$("#main").addEventListener("click", e=>{
+  const d = e.target.closest(".dil"); if(!d) return;
+  if(d.dataset.key!=null){ state.open = state.open===d.dataset.key?null:d.dataset.key; }
+  if(d.dataset.hems!=null){ state.openH = state.openH===d.dataset.hems?null:d.dataset.hems; }
+  render();
+});
+$("#slimBtn").addEventListener("click", ()=>{ state.editing=true; syncTop(); $("#doneWrap").hidden=false; });
+$("#doneBtn").addEventListener("click", ()=>{ state.editing=false; syncTop(); });
+
+let compact=false, tick=false;
+function syncTop(){
+  const t=$("#top");
+  t.classList.toggle("compact", compact);
+  t.classList.toggle("editing", compact && state.editing);
+  $("#doneWrap").hidden = !(compact && state.editing);
+}
+window.addEventListener("scroll", ()=>{
+  if(tick) return; tick=true;
+  requestAnimationFrame(()=>{ tick=false; const c=window.scrollY>110; if(c!==compact){ compact=c; if(!c) state.editing=false; syncTop(); } });
+},{passive:true});
+
+// bottom nav highlight
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on", a.getAttribute("href")==="#"+en.target.id)); } });
+},{rootMargin:"-40% 0px -55% 0px"});
+new MutationObserver(()=>document.querySelectorAll("main section").forEach(s=>obs.observe(s))).observe($("#main"),{childList:true});
+
+// offline: register the service worker if we are being served over http(s)
+if("serviceWorker" in navigator && /^https?:/.test(location.protocol)){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+render();
+</script>
+</body>
+</html>
