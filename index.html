@@ -157,6 +157,10 @@ tr.hit td{background:color-mix(in srgb,var(--brand) 14%,var(--surface));font-wei
 .grid .card .big{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 
 .warn{margin-top:10px;padding:8px 12px;border-left:3px solid var(--arrest);background:var(--arrest-bg);font-size:12.5px;border-radius:0 8px 8px 0}
+/* shown only when the check built into the data block finds a problem */
+.databad{margin:12px 0;padding:10px 14px;border:1px solid var(--arrest);background:var(--arrest-bg);border-radius:10px;font-size:13px}
+.databad h3{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--arrest)}
+.databad ul{margin:0;padding-left:18px}
 footer{margin-top:30px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
 footer p{margin:6px 0}
 
@@ -204,14 +208,8 @@ nav[hidden]{display:none}
       <button class="btn" id="slimBtn" type="button">Change</button>
     </div>
     <div class="expand">
-      <div class="chips" role="group" aria-label="Weight band">
-        <button class="chip" type="button" data-band="5">5<small>&lt;1 yr</small></button>
-        <button class="chip" type="button" data-band="10">10<small>1 yr</small></button>
-        <button class="chip" type="button" data-band="20">20<small>2–5 yr</small></button>
-        <button class="chip" type="button" data-band="30">30<small>6–10 yr</small></button>
-        <button class="chip" type="button" data-band="40">40<small>11–13 yr</small></button>
-        <button class="chip" type="button" data-band="adult">Adult<small>&gt;40 kg</small></button>
-      </div>
+      <!-- The weight buttons are built from BANDS in the script below. -->
+      <div class="chips" role="group" aria-label="Weight band"></div>
       <div class="fields">
         <div class="field"><label for="w">Weight (kg)</label><input id="w" type="number" inputmode="decimal" min="0" step="0.1" placeholder="—" enterkeyhint="done"></div>
         <div class="field"><label for="a">Age (years)</label><input id="a" type="number" inputmode="decimal" min="0" max="18" step="0.5" placeholder="—" enterkeyhint="done"></div>
@@ -237,112 +235,833 @@ nav[hidden]{display:none}
 </nav>
 
 <script>
-const EAS = {"arrest":[{"n":"Adrenaline IV","v":{"5":["0.05 mg","0.5 ml (1:10,000)",1],"10":["0.1 mg","1 ml (1:10,000)",1],"20":["0.2 mg","2 ml (1:10,000)",1],"30":["0.3 mg","3 ml (1:10,000)",1],"40":["0.4 mg","4 ml (1:10,000)",1]}},{"n":"Amiodarone IV","v":{"5":["25 mg","0.5 ml (undiluted)",null],"10":["50 mg","1 ml (undiluted)",null],"20":["100 mg","2 ml (undiluted)",null],"30":["150 mg","3 ml (undiluted)",null],"40":["200 mg","4 ml (undiluted)",null]}},{"n":"Manual defibrillation","v":{"5":["20–25 J","",null],"10":["40–50 J","",null],"20":["80–100 J","",null],"30":["120–150 J","",null],"40":["160–200 J","",null]}}],"airway":[{"n":"SGA (LMA)","v":{"5":["Size 1 (under 5 kg)","Cuff inflation 4 ml",null],"10":["Size 2 (10–20 kg)","Cuff inflation 10 ml",null],"20":["Size 2 (10–20 kg)","Cuff inflation 10 ml",null],"30":["Size 3 (30–50 kg)","Cuff inflation 20 ml",null],"40":["Size 3 (30–50 kg)","Cuff inflation 20 ml",null]}},{"n":"ETT (cuffed)","v":{"5":["Size 3","9 cm length at lips",null],"10":["Size 3 or 4","12 cm length at lips",null],"20":["Size 4 or 5","15 cm length at lips",null],"30":["Size 5 or 6","17 cm length at lips",null],"40":["Size 6 or 7","19 cm length at lips",null]}}],"drugs":[{"n":"Adrenaline IV (not cardiac arrest)","v":{"5":["0.001 mg","1 ml (1:1,000,000)",2],"10":["0.002 mg","2 ml (1:1,000,000)",2],"20":["0.004 mg","4 ml (1:1,000,000)",2],"30":["0.006 mg","6 ml (1:1,000,000)",2],"40":["0.008 mg","8 ml (1:1,000,000)",2]}},{"n":"Adrenaline IM","v":{"5":["0.05 mg","0.5 ml (1:10,000)",1],"10":["0.1 mg","0.1 ml (undiluted)",null],"20":["0.2 mg","0.2 ml (undiluted)",null],"30":["0.3 mg","0.3 ml (undiluted)",null],"40":["0.4 mg","0.4 ml (undiluted)",null]}},{"n":"Adrenaline IN (epistaxis)","v":{"5":null,"10":null,"20":["0.1 mg","1 ml (1:10,000)",1],"30":["0.1 mg","1 ml (1:10,000)",1],"40":["0.2 mg","2 ml (1:10,000)",1]}},{"n":"Cefazolin IV","v":{"5":["150 mg","1.5 ml (100 mg/ml)",3],"10":["250 mg","2.5 ml (100 mg/ml)",3],"20":["500 mg","5 ml (100 mg/ml)",3],"30":["750 mg","7.5 ml (100 mg/ml)",3],"40":["1000 mg","10 ml (100 mg/ ml)",3]}},{"n":"Ceftriaxone IV","v":{"5":["300 mg","1.5 ml (200 mg/ml)",4],"10":["500 mg","2.5 ml (200 mg/ml)",4],"20":["1 g","5 ml (200 mg/ml)",4],"30":["1.5 g","7.5 ml (200 mg/ml)",4],"40":["2 g","10 ml (200 mg/ml)",4]}},{"n":"Ceftriaxone IM","v":{"5":["300 mg","0.75 ml (400 mg/ml)",5],"10":["500 mg","1.25 ml (400 mg/ml)",5],"20":["1 g","2.5 ml (400 mg/ml)",5],"30":["1.5 g","3.75 ml (400 mg/ml)",5],"40":["2 g","5 ml (400 mg/ml)",5]}},{"n":"Fentanyl IV (analgesia)","v":{"5":["1–5 mcg","1–5 ml (1 mcg/ml)",7],"10":["2–10 mcg","2–10 ml (1 mcg/ml)",7],"20":["5–20 mcg","5–20 ml (1 mcg/ml)",7],"30":["10–30 mcg","1–3 ml (10 mcg/ml)",6],"40":["10–40 mcg","1–4 ml (10 mcg/ml)",6]}},{"n":"Fentanyl IM","v":{"5":["5 mcg","0.1 ml (undiluted)",null],"10":["10 mcg","0.2 ml (undiluted)",null],"20":["20 mcg","0.4 ml (undiluted)",null],"30":["30 mcg","0.6 ml (undiluted)",null],"40":["40 mcg","0.8 ml (undiluted)",null]}},{"n":"Fentanyl IN","v":{"5":["5 mcg","0.1 ml (undiluted)",null],"10":["15 mcg","0.3 ml (undiluted)",null],"20":["30 mcg","0.6 ml (undiluted)",null],"30":["45 mcg","0.9 ml (undiluted)",null],"40":["60 mcg","1.2 ml (undiluted)",null]}},{"n":"Fentanyl/ketamine IV (post intubation)","v":{"5":["5 mcg/5 mg","0.5 ml",8],"10":["10 mcg/10 mg","1 ml",8],"20":["20 mcg/20 mg","2 ml",8],"30":["30 mcg/30 mg","3 ml",8],"40":["40 mcg/40 mg","4 ml",8]}},{"n":"Glucagon IM","v":{"5":["0.5 mg","0.5 ml (undiluted)",null],"10":["0.5 mg","0.5 ml (undiluted)",null],"20":["0.5–1 mg","0.5–1 ml (undiluted)",null],"30":["1 mg","1 ml (undiluted)",null],"40":["1 mg","1 ml (undiluted)",null]}},{"n":"10% glucose IV","v":{"5":["2 ml/kg","10 ml",null],"10":["2 ml/kg","20 ml",null],"20":["2 ml/kg","40 ml",null],"30":["2 ml/kg","60 ml",null],"40":["2 ml/kg","80 ml",null]}},{"n":"Hydrocortisone IV","v":{"5":["10 mg","1 ml (10 mg/ml)",9],"10":["25 mg","2.5 ml (10 mg/ml)",9],"20":["50 mg","5 ml (10 mg/ml)",9],"30":["75 mg","7.5 ml (10 mg/ml)",9],"40":["100 mg","10 ml (10 mg/ml)",9]}},{"n":"Hydrocortisone IM","v":{"5":["10 mg","0.2 ml (undiluted)",null],"10":["25 mg","0.5 ml (undiluted)",null],"20":["50 mg","1 ml (undiluted)",null],"30":["75 mg","1.5 ml (undiluted)",null],"40":["100 mg","2 ml (undiluted)",null]}},{"n":"Ibuprofen liquid PO","v":{"5":["50 mg","2.5 ml (20 mg/ml)",null],"10":["100 mg","5 ml (20 mg/ml)",null],"20":["150 mg","7.5 ml (20 mg/ml)",null],"30":["200 mg","10 ml (20 mg/ml)",null],"40":["300 mg","15 ml (20 mg/ml)",null]}},{"n":"Ibuprofen tablet PO","v":{"5":null,"10":["100 mg","½ tablet",null],"20":["100 mg","½ tablet",null],"30":["200 mg","1 tablet",null],"40":["300 mg","1½ tablets",null]}},{"n":"Ketamine IV (analgesia)","v":{"5":null,"10":["2 mg","2 ml (1 mg/ml)",10],"20":["4 mg","4 ml (1 mg/ml)",10],"30":["6 mg","6 ml (1 mg/ml)",10],"40":["8 mg","8 ml (1 mg/ml)",10]}},{"n":"Ketamine IV (dissociation)","v":{"5":null,"10":["10 mg","1 ml (10 mg/ml)",11],"20":["20 mg","2 ml (10 mg/ml)",11],"30":["30 mg","3 ml (10 mg/ml)",11],"40":["40 mg","4 ml (10 mg/ml)",11]}},{"n":"Ketamine IM/PO (analgesia)","v":{"5":null,"10":["5 mg","0.05 ml (undiluted)",null],"20":["10 mg","0.1 ml (undiluted)",null],"30":["15 mg","0.15 ml (undiluted)",null],"40":["20 mg","0.2 ml (undiluted)",null]}},{"n":"Ketamine IM (dissociation)","v":{"5":null,"10":["50 mg","0.5 ml (undiluted)",null],"20":["100 mg","1 ml (undiluted)",null],"30":["150 mg","1.5 ml (undiluted)",null],"40":["200 mg","2 ml (undiluted)",null]}},{"n":"Levetiracetam IV","v":{"5":["250 mg","2.5 ml (100 mg/ml)",12],"10":["500 mg","5 ml (100 mg/ml)",12],"20":["1000 mg","10 ml (100 mg/ml)",12],"30":["1500 mg","15 ml (100 mg/ml)",12],"40":["2000 mg","20 ml (100 mg/ml)",12]}},{"n":"1% lignocaine IO","v":{"5":["5 mg","0.5 ml (undiluted)",null],"10":["10 mg","1 ml (undiluted)",null],"20":["20 mg","2 ml (undiluted)",null],"30":["30 mg","3 ml (undiluted)",null],"40":["40 mg","4 ml (undiluted)",null]}},{"n":"1% lignocaine SC","v":{"5":["15 mg (max)","1.5 ml (max)",null],"10":["30 mg (max)","3 ml (max)",null],"20":["60 mg (max)","6 ml (max)",null],"30":["90 mg (max)","9 ml (max)",null],"40":["120 mg (max)","12 ml (max)",null]}},{"n":"Loratadine PO","v":{"5":null,"10":["10 mg","1 tablet",null],"20":["10 mg","1 tablet",null],"30":["10 mg","1 tablet",null],"40":["20 mg","2 tablets",null]}},{"n":"Magnesium IV","v":{"5":null,"10":null,"20":["4 mmol","4 ml (1 mmol/ml)",13],"30":["6 mmol","6 ml (1 mmol/ml)",13],"40":["8 mmol","8 ml (1 mmol/ml)",13]}},{"n":"Metaraminol IV","v":{"5":["0.05–0.1 mg","0.5–1 ml (0.1 mg/ml)",14],"10":["0.1–0.2 mg","1–2 ml (0.1 mg/ml)",14],"20":["0.2–0.4 mg","2–4 ml (0.1 mg/ml)",14],"30":["0.3–0.6 mg","3–6 ml (0.1 mg/ml)",14],"40":["0.4–0.8 mg","4–8 ml (0.1 mg/ml)",14]}},{"n":"Midazolam IV (seizures)","v":{"5":["0.5 mg","0.5 ml (1 mg/ml)",15],"10":["1 mg","1 ml (1 mg/ml)",15],"20":["2 mg","2 ml (1 mg/ml)",15],"30":["3 mg","3 ml (1 mg/ml)",15],"40":["4 mg","4 ml (1 mg/ml)",15]}},{"n":"Midazolam IM (seizures)","v":{"5":["1 mg","0.2 ml (undiluted)",null],"10":["2 mg","0.4 ml (undiluted)",null],"20":["4 mg","0.8 ml (undiluted)",null],"30":["6 mg","1.2 ml (undiluted)",null],"40":["8 mg","1.6 ml (undiluted)",null]}},{"n":"Morphine IV","v":{"5":["0.25 mg","0.25 ml (1 mg/ml)",16],"10":["0.5 mg","0.5 ml (1 mg/ml)",16],"20":["1 mg","1 ml (1 mg/ml)",16],"30":["1.5 mg","1.5 ml (1 mg/ml)",16],"40":["2 mg","2 ml (1 mg/ml)",16]}},{"n":"Morphine IM/SC","v":{"5":["1 mg","0.1 ml (undiluted)",null],"10":["2 mg","0.2 ml (undiluted)",null],"20":["4 mg","0.4 ml (undiluted)",null],"30":["6 mg","0.6 ml (undiluted)",null],"40":["8 mg","0.8 ml (undiluted)",null]}},{"n":"Naloxone IV","v":{"5":["0.05 mg","0.5 ml (0.1 mg/ml)",17],"10":["0.1 mg","1 ml (0.1 mg/ml)",17],"20":["0.1–0.2 mg","1–2 ml (0.1 mg/ml)",17],"30":["0.1–0.3 mg","1–3 ml (0.1 mg/ml)",17],"40":["0.1–0.4 mg","1–4 ml (0.1 mg/ml)",17]}},{"n":"Naloxone IM","v":{"5":["0.1 mg","0.25 ml (undiluted)",null],"10":["0.2 mg","0.5 ml (undiluted)",null],"20":["0.4 mg","1 ml (undiluted)",null],"30":["0.6 mg","1.5 ml (undiluted)",null],"40":["0.8 mg","2 ml (undiluted)",null]}},{"n":"Ondansetron IV","v":{"5":null,"10":["2 mg","1 ml (undiluted)",null],"20":["4 mg","2 ml (undiluted)",null],"30":["6 mg","3 ml (undiluted)",null],"40":["8 mg","4 ml (undiluted)",null]}},{"n":"Ondansetron IM","v":{"5":null,"10":["1 mg","0.5 ml (undiluted)",null],"20":["2 mg","1 ml (undiluted)",null],"30":["3 mg","1.5 ml (undiluted)",null],"40":["4 mg","2 ml (undiluted)",null]}},{"n":"Paracetamol liquid PO","v":{"5":["75 mg","1.5 ml (50 mg/ml)",null],"10":["150 mg","3 ml (50 mg/ml)",null],"20":["250 mg","5 ml (50 mg/ml)",null],"30":["375 mg","7.5 ml (50 mg/ml)",null],"40":["500 mg","10 ml (50 mg/ml)",null]}},{"n":"Paracetamol tablet PO","v":{"5":null,"10":null,"20":["250 mg","½ tablet",null],"30":["250 mg","½ tablet",null],"40":["500 mg","1 tablet",null]}},{"n":"Prednisolone PO","v":{"5":["5 mg","1 ml (5 mg/ml)",null],"10":["10 mg","2 ml (5 mg/ml)",null],"20":["20 mg","4 ml (5 mg/ml)",null],"30":["30 mg","6 ml (5 mg/ml)",null],"40":["40 mg","8 ml (5 mg/ml)",null]}},{"n":"Prednisone PO","v":{"5":null,"10":["10 mg","½ tablet",null],"20":["20 mg","1 tablet",null],"30":["30 mg","1½ tablets",null],"40":["40 mg","2 tablets",null]}},{"n":"Rocuronium IV","v":{"5":["5 mg","0.5 ml (undiluted)",null],"10":["10 mg","1 ml (undiluted)",null],"20":["20 mg","2 ml (undiluted)",null],"30":["30 mg","3 ml (undiluted)",null],"40":["40 mg","4 ml (undiluted)",null]}},{"n":"0.75% ropivacaine SC","v":{"5":["11.25 mg (max)","1.5 ml (max)",null],"10":["22.5 mg (max)","3 ml (max)",null],"20":["45 mg (max)","6 ml (max)",null],"30":["67.5 mg (max)","9 ml (max)",null],"40":["90 mg (max)","12 ml (max)",null]}},{"n":"0.9% sodium chloride IV","v":{"5":["20 ml/kg","100 ml",null],"10":["20 ml/kg","200 ml",null],"20":["20 ml/kg","400 ml",null],"30":["20 ml/kg","600 ml",null],"40":["20 ml/kg","800 ml",null]}},{"n":"8.4% sodium bicarbonate","v":{"5":["10 mmol","10 ml (1 mmol/ml)",null],"10":["20 mmol","20 ml (1 mmol/ml)",null],"20":["40 mmol","40 ml (1 mmol/ml)",null],"30":["60 mmol","60 ml (1 mmol/ml)",null],"40":["80 mmol","80 ml (1 mmol/ml)",null]}},{"n":"Tranexamic acid IN (epistaxis)","v":{"5":null,"10":null,"20":["100 mg","1 ml (undiluted)",null],"30":["100 mg","1 ml (undiluted)",null],"40":["200 mg","2 ml (undiluted)",null]}},{"n":"Tranexamic acid IV (non-traumatic bleeding)","v":{"5":["100 mg","1 ml (undiluted)",null],"10":["200 mg","2 ml (undiluted)",null],"20":["400 mg","4 ml (undiluted)",null],"30":["600 mg","6 ml (undiluted)",null],"40":["800 mg","8 ml (undiluted)",null]}},{"n":"Tranexamic acid IV (bleeding from trauma)","v":{"5":["200 mg","2 ml (undiluted)",null],"10":["400 mg","4 ml (undiluted)",null],"20":["800 mg","8 ml (undiluted)",null],"30":["1200 mg","12 ml (undiluted)",null],"40":["1600 mg","16 ml (undiluted)",null]}}]};
-
-const DIL = {
-1:["Adrenaline 1:10,000 (0.1 mg/ml)","Draw up 1 ml of adrenaline from a 1 mg/ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
-2:["Adrenaline IV 1:1,000,000 (0.001 mg/ml)","Add 1 ml of adrenaline (1 mg/ml) to a 1 litre bag of 0.9% sodium chloride. Shake well and label. Give the table volume as an IV bolus. An IV infusion may be used if aged 5 years or older."],
-3:["Cefazolin IV 100 mg/ml","Add about 4 ml of 0.9% sodium chloride to a 1 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."],
-4:["Ceftriaxone IV 200 mg/ml","Add about 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."],
-5:["Ceftriaxone IM 400 mg/ml","Add 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved — total volume 5 ml. Draw 2.5 ml into each of two syringes. Discard what is not needed. One syringe into each lateral thigh; if unsuitable, each lateral upper arm."],
-6:["Fentanyl IV 10 mcg/ml — weight rounded to 30 kg or more","Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
-7:["Fentanyl IV 1 mcg/ml — weight rounded to 20 kg or less","Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Add to a 100 ml bag of 5% glucose. Shake well and label. Give the table volume as an IV bolus."],
-8:["Fentanyl and ketamine IV, post intubation","Draw up 200 mcg of fentanyl (two 100 mcg/2 ml ampoules) and 200 mg of ketamine (one 200 mg/2 ml ampoule) into the same syringe. Dilute to a total of 20 ml — 10 mcg/ml fentanyl with 10 mg/ml ketamine. Give the table volume as an IV bolus."],
-9:["Hydrocortisone IV 10 mg/ml","Draw up 100 mg from a 100 mg/2 ml vial. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume IV over 1–2 minutes."],
-10:["Ketamine IV for analgesia 1 mg/ml","Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule and add to a 100 ml bag of 5% glucose — 1 mg/ml. Draw up the table volume, dilute further to a total of 20 ml with 0.9% sodium chloride, and give IV over about 15 minutes."],
-11:["Ketamine IV for dissociation 10 mg/ml","Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
-12:["Levetiracetam","Draw the table volume from 500 mg/5 ml ampoule(s). Give IV over 5 minutes, preferably into a running line."],
-13:["Magnesium IV 1 mmol/ml","Draw up 5 ml from a 10 mmol/5 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Discard what is not needed. Give IV over about 15 minutes, preferably into a running line."],
-14:["Metaraminol IV 0.1 mg/ml","Draw up 1 ml from a 10 mg/1 ml ampoule and add to a 100 ml bag of 5% glucose — 0.1 mg/ml. Shake well and label. Give the table volume as an IV bolus."],
-15:["Midazolam IV 1 mg/ml","Draw up 1 ml from a 15 mg/3 ml ampoule. Dilute to a total of 5 ml with 0.9% sodium chloride. Discard what is not needed. Give the table volume as an IV bolus."],
-16:["Morphine IV 1 mg/ml","Draw up 1 ml from a 10 mg/1 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."],
-17:["Naloxone IV 0.1 mg/ml","Draw up 1 ml from a 0.4 mg/1 ml ampoule. Dilute to a total of 4 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."]
-};
-
+/* Helpers used by the dose rules below: f() trims a number to two decimal
+   places, cap() applies a ceiling. */
 const f = n => String(Math.round(n*100)/100);
 const cap = (n,m) => Math.min(n,m);
 
-/* HEMS Clinical Ltd CPG extensions v1 (26 Jun 2026). Per-kg on actual weight. */
-const HEMS = [
- {n:"Cefazolin IV (under 12 years)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(20*w)} mg`,
-  rule:"20 mg/kg for all patients.",
-  prep:"1 g ampoule plus about 4 ml 0.9% NaCl, shake until dissolved. Draw up and dilute to 10 ml (100 mg/ml). Discard to the required dose. IV over 1–2 minutes into a running line.",
-  flag:"Differs from the EAS band table (30 mg/kg). Seek clinical advice on 0800HEMSMD before commencement."},
- {n:"Hypertonic saline 3%",scope:"ICP · CCP",calc:w=>`${f(cap(5*w,250))} ml over 30 min`,
-  rule:"5 ml/kg over 30 minutes, not exceeding 250 ml.",
-  prep:"Add 26 ml of 23.4% NaCl to a 250 ml bag of 0.9% NaCl — 276 ml at 3%. Draw the required volume into syringes. Dedicated line; never with blood or blood products. IV or IO."},
- {n:"Atropine IV (bradycardia with intubation)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(20*w)} mcg — ${f(20*w/100)} ml`,
-  rule:"20 mcg/kg of 100 mcg/ml. May repeat every 10–15 minutes to a maximum total of 40 mcg/kg.",
-  prep:"Draw 600 mcg into a 10 ml syringe and dilute to 6 ml with 0.9% NaCl — 100 mcg/ml.",
-  flag:"Consider consultation with 0800HEMSMD."},
- {n:"Hydrocortisone IV (asthma)",scope:"Paramedic · ICP · CCP",calc:w=>`${f(cap(4*w,100))} mg — ${f(cap(4*w,100)/50)} ml`,
-  rule:"4 mg/kg IV to a maximum of 100 mg. Alternatively 25–50 mg under 5 years, 50–100 mg over 5 years. For adrenal crisis use the national EAS dose.",
-  prep:"Force the 2 ml sterile water diluent into the vial, shake until dissolved, draw up — 50 mg/ml. Undiluted IV or IM."},
- {n:"Promethazine IV/IM (over 5 years)",scope:"ICP · CCP",calc:w=>`${f(cap(w,12.5))} mg — ${f(cap(w,12.5)/5)} ml`,
-  rule:"1 mg/kg to a maximum of 12.5 mg, one dose only.",
-  prep:"50 mg/2 ml ampoule diluted to 10 ml with 0.9% NaCl — 5 mg/ml. IV over 1 minute to avoid hypotension.",
-  flag:"Contraindicated under 6 years. If IM, deep IM only. Never SC."},
- {n:"Cyclizine IV/IM",scope:"Paramedic · ICP · CCP",calc:(w,a)=>{const c=(a!=null&&a>=6)?50:25;return `${f(cap(.5*w,c))}–${f(cap(w,c))} mg`;},
-  rule:"0.5–1 mg/kg. Maximum 25 mg at 1–5 years, 50 mg at 6–16 years.",
-  prep:"Draw up the ampoule — 50 mg/ml. Do not dilute. Slow IV or IM.",
-  flag:"The ceiling shown depends on the age entered; without an age the 25 mg cap is used."},
- {n:"Magnesium IV (asthma)",scope:"ICP · CCP",calc:w=>`${f(.1*w)} ml (${f(.2*w)} mmol)`,
-  rule:"0.1 ml/kg of 50% magnesium sulphate (0.2 mmol/kg). Infuse at 80 ml/hr — 20 ml over 15 minutes.",
-  prep:"Draw up 0.1 ml/kg and dilute to 20 ml with 0.9% NaCl. Not in the same line as sodium bicarbonate or calcium chloride."},
- {n:"Adrenaline infusion",scope:"ICP · CCP",calc:w=>`${f(.1*w)}–${f(w)} ml/hr`,
-  rule:"1–10 mcg/kg/hr (0.1–1 ml/kg/hr) of 10 mcg/ml, titrated to blood pressure.",
-  prep:"Draw up 0.5 mg (0.5 ml) adrenaline into a 50 ml syringe and dilute to 50 ml with 0.9% NaCl — 10 mcg/ml."},
- {n:"Metaraminol infusion",scope:"ICP · CCP",calc:w=>`${f(.1*w)}–${f(.2*w)} ml/hr`,
-  rule:"0.1–0.2 ml/kg/hr of metaraminol 0.1 mg/ml.",
-  prep:"Add 10 mg (1 ml) metaraminol to a 100 ml bag of 0.9% NaCl. Draw 10 ml into a 10 ml syringe — 0.1 mg/ml.",
-  flag:"Seek clinical advice on 0800HEMSMD before continuation or commencement."},
- {n:"Fentanyl infusion",scope:"ICP · CCP",calc:w=>`${f(.2*w)}–${f(.4*w)} ml/hr`,
-  rule:"2–4 mcg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mcg/ml.",
-  prep:"Draw up 200 mcg (4 ml) into a 20 ml syringe and dilute to 20 ml with 0.9% NaCl — 10 mcg/ml."},
- {n:"Fentanyl / ketamine infusion",scope:"ICP · CCP",calc:w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
-  rule:"Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with ketamine 2 mg/kg/hr), up to 0.5 ml/kg/hr.",
-  prep:"200 mcg fentanyl (4 ml) plus 200 mg ketamine (2 ml) into a 20 or 30 ml syringe, diluted to 20 ml with 0.9% NaCl — fentanyl 10 mcg/ml with ketamine 10 mg/ml."},
- {n:"Fentanyl / midazolam infusion",scope:"ICP · CCP",calc:w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
-  rule:"Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with midazolam 0.2 mg/kg/hr), up to 0.5 ml/kg/hr.",
-  prep:"300 mcg fentanyl (6 ml) plus 30 mg midazolam (6 ml) into a 30 or 50 ml syringe, diluted to 30 ml with 0.9% NaCl — fentanyl 10 mcg/ml with midazolam 1 mg/ml."},
- {n:"Ketamine infusion",scope:"Paramedic · ICP · CCP",calc:w=>`load ${f(cap(.25*w,25))} mg · ${f(.5*w)}–${f(w)} ml/hr`,
-  rule:"Loading dose up to 0.25 mg/kg (max 25 mg) over 15 minutes. Then 0.5 mg/kg/hr, up to 1 mg/kg/hr, of 1 mg/ml.",
-  prep:"Add 100 mg (1 ml) ketamine to a 100 ml bag of 0.9% NaCl; draw into a 20 or 30 ml syringe — 1 mg/ml.",
-  flag:"Contraindicated under one year of age."},
- {n:"Propofol infusion",scope:"ICP · CCP",calc:w=>`${f(cap(.2*w,20))}–${f(cap(.4*w,20))} ml/hr`,
-  rule:"2–4 mg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mg/ml, maximum 20 ml/hr.",
-  prep:"Draw up 200 mg (20 ml) undiluted — 10 mg/ml.",
-  flag:"Seek clinical advice on 0800HEMSMD before continuation or commencement."}
+/* ===========================================================================
+   DATA  —  everything clinical lives between here and the END OF DATA marker.
+
+   Changing a dose, adding a drug, retiring one, or moving to a new version of
+   a source document should never need an edit below that marker. Nothing down
+   there knows the name of any drug.
+
+   After an edit, open the page. A red banner across the top lists anything
+   the built-in check can see: an unknown preparation id, a weight band left
+   out, a drug name used twice. No banner means the data is well formed — it
+   does NOT mean the numbers are right. Check those against the source.
+
+   When publishing the edit, bump `const C` in sw.js as well, or phones that
+   already have the app will keep serving the old doses from their cache.
+   See README.md.
+   =========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Source documents and the standing wording shown around the tables.
+   -------------------------------------------------------------------------- */
+const META = {
+  easSource:   "CPG EAS 7.2 Paediatric Equipment and Drug Doses, St John New Zealand, version 1.0.5 (28 Oct 2024), export dated 03 Aug 2026.",
+  hemsSource:  "HEMS Clinical Ltd CPG Extensions to Standing Orders, version 1, 26 Jun 2026.",
+  scopeNote:   "The EAS tables do not carry all administration information; read with the medicines section of the comprehensive edition. Infant GCS omitted — not legible in the supplied file.",
+  authorNote:  "Created by T Dale. This has not been cross referenced or validated. Not for operational use at this time.",
+  storageNote: "Weight is deliberately not remembered between openings.",
+  lastUpdated: "05/09/2026",
+  disclaimer:  "Uncontrolled copy. Check values against the current guideline at cpg.stjohn.org.nz. EAS doses are published band values, not per-kg calculations."
+};
+
+/* Section headings and the grey line under each of them. The ones written as
+   functions are handed the figure they need to quote. */
+const TEXT = {
+  noWeight:      "Tap a band, or enter a weight or age.",
+  noWeightMeta:  "No weight entered",
+  empty:         "Doses appear here once a weight or age is entered.",
+  neonate:       " <b>Neonate</b> — low threshold for clinical advice.",
+  noMatch:       q => `Nothing matches “${q}”.`,
+  adultMeta:     kg => `over ${kg} kg`,
+  ageEstimate:   (age, kg) => `Age ${age} → estimated <b>${kg} kg</b> (formula tends to underestimate). `,
+  bandReadout:   (band, kg, ageWording) => `<b>${kg} kg</b> rounded up to the ${band} kg band, ${ageWording}. HEMS and RSI use the actual ${kg} kg.`,
+  dataProblems:  "This copy of the app has a data problem",
+  arrestTitle:   "Cardiac arrest",
+  arrestNote:    "Defibrillation 4 J/kg, initial and subsequent. If the level is unavailable, select the next highest.",
+  airwayTitle:   "Airway",
+  airwayNote:    "Children may need a different size than predicted.",
+  drugsTitle:    "Drugs — EAS 7.2 band table",
+  drugsNote:     band => `Published values for the ${band} kg band. Tap a number for preparation.`,
+  rsiTitle:      "Rapid sequence intubation",
+  rsiNote:       w => `Calculated on ${w} kg. These per-kg figures were supplied by you and are in neither source document — confirm against the RSI guideline.`,
+  hemsTitle:     "HEMS extensions",
+  hemsNote:      w => `Calculated on the actual ${w} kg, not the band. Tap a row for rule and preparation.`,
+  vitalsTitle:   "Vital signs",
+  vitalsNote:    "Enter an age to highlight a row.",
+  formulaeTitle: "Estimation formulae"
+};
+
+/* --------------------------------------------------------------------------
+   2. Weight bands.
+
+   The EAS table is published against these bands. `kg` is both the band's
+   name and its upper bound: a weight rounds up into the first band it fits.
+   `chip` is the small label on the button at the top of the screen and `age`
+   the wording used in the readout underneath.
+
+   Add, remove or re-label a band here and the buttons, the rounding and the
+   readout all follow. Anything heavier than the last band is an adult.
+   -------------------------------------------------------------------------- */
+const BANDS = [
+  { kg:  5, chip: "&lt;1 yr", age: "under 1 year" },
+  { kg: 10, chip: "1 yr",     age: "1 year"       },
+  { kg: 20, chip: "2–5 yr",   age: "2–5 years"    },
+  { kg: 30, chip: "6–10 yr",  age: "6–10 years"   },
+  { kg: 40, chip: "11–13 yr", age: "11–13 years"  }
 ];
-const CONSULT = [["Noradrenaline","not for paediatric use"],["Phenylephrine","not for paediatric use"],["Isoprenaline","not for paediatric use"],["GTN infusion","not for paediatric use"],["Hydralazine","not for paediatric use"],["Amiodarone infusion","not for paediatric use"],["Labetalol","consult 0800HEMSMD"],["Calcium chloride","consult 0800HEMSMD"],["Heparin","consult 0800HEMSMD"],["Insulin","consult 0800HEMSMD"]];
 
-/* RSI — supplied by the user, not in either source document */
-const RSI = [["Ketamine IV", w=>`${f(2*w)} mg`,"2 mg/kg"],["Rocuronium IV", w=>`${f(2*w)} mg`,"2 mg/kg"],["Fentanyl IV", w=>`${f(2*w)} mcg`,"2 mcg/kg"]];
+const ADULT = {
+  label:  "Adult",
+  chip:   "&gt;40 kg",
+  weight: 45,   /* weight filled in when the Adult button is tapped */
+  note:   "Over 40 kg — adult doses usually apply. Use judgement where a dose could harm, e.g. paracetamol. If in doubt, give the paediatric dose."
+};
 
-const VITALS = [["Under 1 year","110–160","30–40","70–90"],["1–2 years","100–150","25–35","80–95"],["2–5 years","95–140","25–30","80–100"],["5–12 years","80–120","20–25","90–110"],["Over 12 years","60–100","15–20","100–120"]];
-const BAND_AGE = {5:"under 1 year",10:"1 year",20:"2–5 years",30:"6–10 years",40:"11–13 years"};
+/* Below this weight the readout adds the neonate caution from TEXT above. */
+const NEONATE_KG = 5;
+
+/* --------------------------------------------------------------------------
+   3. Preparations.
+
+   Tapping the number beside a dose opens one of these. The number shown is
+   simply the entry's position in this list, and drugs refer to a preparation
+   by its id and never by its number — so a new preparation can be dropped in
+   anywhere (the list is kept alphabetical) and the numbering re-flows on its
+   own. Renaming an id means updating the drugs that quote it; the check on
+   load will name any that were missed.
+   -------------------------------------------------------------------------- */
+const PREPS = {
+  "adrenaline-1-10000": {
+    title: "Adrenaline 1:10,000 (0.1 mg/ml)",
+    steps: "Draw up 1 ml of adrenaline from a 1 mg/ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."
+  },
+  "adrenaline-1-1000000": {
+    title: "Adrenaline IV 1:1,000,000 (0.001 mg/ml)",
+    steps: "Add 1 ml of adrenaline (1 mg/ml) to a 1 litre bag of 0.9% sodium chloride. Shake well and label. Give the table volume as an IV bolus. An IV infusion may be used if aged 5 years or older."
+  },
+  "cefazolin-iv": {
+    title: "Cefazolin IV 100 mg/ml",
+    steps: "Add about 4 ml of 0.9% sodium chloride to a 1 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."
+  },
+  "ceftriaxone-iv": {
+    title: "Ceftriaxone IV 200 mg/ml",
+    steps: "Add about 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved. Draw up the contents and dilute to a total of 10 ml. Discard what is not needed. Slow IV push over 1–2 minutes, preferably into a running line."
+  },
+  "ceftriaxone-im": {
+    title: "Ceftriaxone IM 400 mg/ml",
+    steps: "Add 4 ml of 0.9% sodium chloride to a 2 g ampoule and shake until dissolved — total volume 5 ml. Draw 2.5 ml into each of two syringes. Discard what is not needed. One syringe into each lateral thigh; if unsuitable, each lateral upper arm."
+  },
+  "fentanyl-iv-10mcg": {
+    title: "Fentanyl IV 10 mcg/ml — weight rounded to 30 kg or more",
+    steps: "Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."
+  },
+  "fentanyl-iv-1mcg": {
+    title: "Fentanyl IV 1 mcg/ml — weight rounded to 20 kg or less",
+    steps: "Draw up 2 ml of fentanyl from a 100 mcg/2 ml ampoule. Add to a 100 ml bag of 5% glucose. Shake well and label. Give the table volume as an IV bolus."
+  },
+  "fentanyl-ketamine-iv": {
+    title: "Fentanyl and ketamine IV, post intubation",
+    steps: "Draw up 200 mcg of fentanyl (two 100 mcg/2 ml ampoules) and 200 mg of ketamine (one 200 mg/2 ml ampoule) into the same syringe. Dilute to a total of 20 ml — 10 mcg/ml fentanyl with 10 mg/ml ketamine. Give the table volume as an IV bolus."
+  },
+  "hydrocortisone-iv": {
+    title: "Hydrocortisone IV 10 mg/ml",
+    steps: "Draw up 100 mg from a 100 mg/2 ml vial. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume IV over 1–2 minutes."
+  },
+  "ketamine-iv-analgesia": {
+    title: "Ketamine IV for analgesia 1 mg/ml",
+    steps: "Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule and add to a 100 ml bag of 5% glucose — 1 mg/ml. Draw up the table volume, dilute further to a total of 20 ml with 0.9% sodium chloride, and give IV over about 15 minutes."
+  },
+  "ketamine-iv-dissociation": {
+    title: "Ketamine IV for dissociation 10 mg/ml",
+    steps: "Draw up 1 ml of ketamine from a 200 mg/2 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."
+  },
+  "levetiracetam-iv": {
+    title: "Levetiracetam",
+    steps: "Draw the table volume from 500 mg/5 ml ampoule(s). Give IV over 5 minutes, preferably into a running line."
+  },
+  "magnesium-iv": {
+    title: "Magnesium IV 1 mmol/ml",
+    steps: "Draw up 5 ml from a 10 mmol/5 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Discard what is not needed. Give IV over about 15 minutes, preferably into a running line."
+  },
+  "metaraminol-iv": {
+    title: "Metaraminol IV 0.1 mg/ml",
+    steps: "Draw up 1 ml from a 10 mg/1 ml ampoule and add to a 100 ml bag of 5% glucose — 0.1 mg/ml. Shake well and label. Give the table volume as an IV bolus."
+  },
+  "midazolam-iv": {
+    title: "Midazolam IV 1 mg/ml",
+    steps: "Draw up 1 ml from a 15 mg/3 ml ampoule. Dilute to a total of 5 ml with 0.9% sodium chloride. Discard what is not needed. Give the table volume as an IV bolus."
+  },
+  "morphine-iv": {
+    title: "Morphine IV 1 mg/ml",
+    steps: "Draw up 1 ml from a 10 mg/1 ml ampoule. Dilute to a total of 10 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."
+  },
+  "naloxone-iv": {
+    title: "Naloxone IV 0.1 mg/ml",
+    steps: "Draw up 1 ml from a 0.4 mg/1 ml ampoule. Dilute to a total of 4 ml with 0.9% sodium chloride. Give the table volume as an IV bolus."
+  }
+};
+
+/* --------------------------------------------------------------------------
+   4. The EAS band table.
+
+   Three tables: cardiac arrest, airway, and everything else. Every entry is
+
+       { name: "Shown in the left column", bands: {
+          5: [ dose, volume or detail, preparation id ],
+         ...
+       }}
+
+     dose             the bold figure — "0.5 mg", "Size 3", "20 ml/kg"
+     volume / detail  the small grey line beside it; "" when there is none
+     preparation id   a key of PREPS above, or null when nothing is prepared
+     a whole band     may be null, meaning the drug is not published at that
+                      weight; the row then reads "Not in table at this weight"
+
+   Every band in BANDS needs a line, so that a missing one is a typo the check
+   on load can catch rather than a dose that silently disappears.
+
+   Drugs are listed alphabetically. The search box matches on `name`.
+   -------------------------------------------------------------------------- */
+const EAS = {
+  arrest: [
+    { name: "Adrenaline IV", bands: {
+       5: ["0.05 mg", "0.5 ml (1:10,000)", "adrenaline-1-10000"],
+      10: ["0.1 mg",  "1 ml (1:10,000)",   "adrenaline-1-10000"],
+      20: ["0.2 mg",  "2 ml (1:10,000)",   "adrenaline-1-10000"],
+      30: ["0.3 mg",  "3 ml (1:10,000)",   "adrenaline-1-10000"],
+      40: ["0.4 mg",  "4 ml (1:10,000)",   "adrenaline-1-10000"],
+    }},
+    { name: "Amiodarone IV", bands: {
+       5: ["25 mg",  "0.5 ml (undiluted)", null],
+      10: ["50 mg",  "1 ml (undiluted)",   null],
+      20: ["100 mg", "2 ml (undiluted)",   null],
+      30: ["150 mg", "3 ml (undiluted)",   null],
+      40: ["200 mg", "4 ml (undiluted)",   null],
+    }},
+    { name: "Manual defibrillation", bands: {
+       5: ["20–25 J",   "", null],
+      10: ["40–50 J",   "", null],
+      20: ["80–100 J",  "", null],
+      30: ["120–150 J", "", null],
+      40: ["160–200 J", "", null],
+    }}
+  ],
+
+  airway: [
+    { name: "SGA (LMA)", bands: {
+       5: ["Size 1 (under 5 kg)", "Cuff inflation 4 ml",  null],
+      10: ["Size 2 (10–20 kg)",   "Cuff inflation 10 ml", null],
+      20: ["Size 2 (10–20 kg)",   "Cuff inflation 10 ml", null],
+      30: ["Size 3 (30–50 kg)",   "Cuff inflation 20 ml", null],
+      40: ["Size 3 (30–50 kg)",   "Cuff inflation 20 ml", null],
+    }},
+    { name: "ETT (cuffed)", bands: {
+       5: ["Size 3",      "9 cm length at lips",  null],
+      10: ["Size 3 or 4", "12 cm length at lips", null],
+      20: ["Size 4 or 5", "15 cm length at lips", null],
+      30: ["Size 5 or 6", "17 cm length at lips", null],
+      40: ["Size 6 or 7", "19 cm length at lips", null],
+    }}
+  ],
+
+  drugs: [
+    { name: "Adrenaline IV (not cardiac arrest)", bands: {
+       5: ["0.001 mg", "1 ml (1:1,000,000)", "adrenaline-1-1000000"],
+      10: ["0.002 mg", "2 ml (1:1,000,000)", "adrenaline-1-1000000"],
+      20: ["0.004 mg", "4 ml (1:1,000,000)", "adrenaline-1-1000000"],
+      30: ["0.006 mg", "6 ml (1:1,000,000)", "adrenaline-1-1000000"],
+      40: ["0.008 mg", "8 ml (1:1,000,000)", "adrenaline-1-1000000"],
+    }},
+    { name: "Adrenaline IM", bands: {
+       5: ["0.05 mg", "0.5 ml (1:10,000)",  "adrenaline-1-10000"],
+      10: ["0.1 mg",  "0.1 ml (undiluted)", null],
+      20: ["0.2 mg",  "0.2 ml (undiluted)", null],
+      30: ["0.3 mg",  "0.3 ml (undiluted)", null],
+      40: ["0.4 mg",  "0.4 ml (undiluted)", null],
+    }},
+    { name: "Adrenaline IN (epistaxis)", bands: {
+       5: null,
+      10: null,
+      20: ["0.1 mg", "1 ml (1:10,000)", "adrenaline-1-10000"],
+      30: ["0.1 mg", "1 ml (1:10,000)", "adrenaline-1-10000"],
+      40: ["0.2 mg", "2 ml (1:10,000)", "adrenaline-1-10000"],
+    }},
+    { name: "Cefazolin IV", bands: {
+       5: ["150 mg",  "1.5 ml (100 mg/ml)", "cefazolin-iv"],
+      10: ["250 mg",  "2.5 ml (100 mg/ml)", "cefazolin-iv"],
+      20: ["500 mg",  "5 ml (100 mg/ml)",   "cefazolin-iv"],
+      30: ["750 mg",  "7.5 ml (100 mg/ml)", "cefazolin-iv"],
+      40: ["1000 mg", "10 ml (100 mg/ ml)", "cefazolin-iv"],
+    }},
+    { name: "Ceftriaxone IV", bands: {
+       5: ["300 mg", "1.5 ml (200 mg/ml)", "ceftriaxone-iv"],
+      10: ["500 mg", "2.5 ml (200 mg/ml)", "ceftriaxone-iv"],
+      20: ["1 g",    "5 ml (200 mg/ml)",   "ceftriaxone-iv"],
+      30: ["1.5 g",  "7.5 ml (200 mg/ml)", "ceftriaxone-iv"],
+      40: ["2 g",    "10 ml (200 mg/ml)",  "ceftriaxone-iv"],
+    }},
+    { name: "Ceftriaxone IM", bands: {
+       5: ["300 mg", "0.75 ml (400 mg/ml)", "ceftriaxone-im"],
+      10: ["500 mg", "1.25 ml (400 mg/ml)", "ceftriaxone-im"],
+      20: ["1 g",    "2.5 ml (400 mg/ml)",  "ceftriaxone-im"],
+      30: ["1.5 g",  "3.75 ml (400 mg/ml)", "ceftriaxone-im"],
+      40: ["2 g",    "5 ml (400 mg/ml)",    "ceftriaxone-im"],
+    }},
+    { name: "Fentanyl IV (analgesia)", bands: {
+       5: ["1–5 mcg",   "1–5 ml (1 mcg/ml)",  "fentanyl-iv-1mcg"],
+      10: ["2–10 mcg",  "2–10 ml (1 mcg/ml)", "fentanyl-iv-1mcg"],
+      20: ["5–20 mcg",  "5–20 ml (1 mcg/ml)", "fentanyl-iv-1mcg"],
+      30: ["10–30 mcg", "1–3 ml (10 mcg/ml)", "fentanyl-iv-10mcg"],
+      40: ["10–40 mcg", "1–4 ml (10 mcg/ml)", "fentanyl-iv-10mcg"],
+    }},
+    { name: "Fentanyl IM", bands: {
+       5: ["5 mcg",  "0.1 ml (undiluted)", null],
+      10: ["10 mcg", "0.2 ml (undiluted)", null],
+      20: ["20 mcg", "0.4 ml (undiluted)", null],
+      30: ["30 mcg", "0.6 ml (undiluted)", null],
+      40: ["40 mcg", "0.8 ml (undiluted)", null],
+    }},
+    { name: "Fentanyl IN", bands: {
+       5: ["5 mcg",  "0.1 ml (undiluted)", null],
+      10: ["15 mcg", "0.3 ml (undiluted)", null],
+      20: ["30 mcg", "0.6 ml (undiluted)", null],
+      30: ["45 mcg", "0.9 ml (undiluted)", null],
+      40: ["60 mcg", "1.2 ml (undiluted)", null],
+    }},
+    { name: "Fentanyl/ketamine IV (post intubation)", bands: {
+       5: ["5 mcg/5 mg",   "0.5 ml", "fentanyl-ketamine-iv"],
+      10: ["10 mcg/10 mg", "1 ml",   "fentanyl-ketamine-iv"],
+      20: ["20 mcg/20 mg", "2 ml",   "fentanyl-ketamine-iv"],
+      30: ["30 mcg/30 mg", "3 ml",   "fentanyl-ketamine-iv"],
+      40: ["40 mcg/40 mg", "4 ml",   "fentanyl-ketamine-iv"],
+    }},
+    { name: "Glucagon IM", bands: {
+       5: ["0.5 mg",   "0.5 ml (undiluted)",   null],
+      10: ["0.5 mg",   "0.5 ml (undiluted)",   null],
+      20: ["0.5–1 mg", "0.5–1 ml (undiluted)", null],
+      30: ["1 mg",     "1 ml (undiluted)",     null],
+      40: ["1 mg",     "1 ml (undiluted)",     null],
+    }},
+    { name: "10% glucose IV", bands: {
+       5: ["2 ml/kg", "10 ml", null],
+      10: ["2 ml/kg", "20 ml", null],
+      20: ["2 ml/kg", "40 ml", null],
+      30: ["2 ml/kg", "60 ml", null],
+      40: ["2 ml/kg", "80 ml", null],
+    }},
+    { name: "Hydrocortisone IV", bands: {
+       5: ["10 mg",  "1 ml (10 mg/ml)",   "hydrocortisone-iv"],
+      10: ["25 mg",  "2.5 ml (10 mg/ml)", "hydrocortisone-iv"],
+      20: ["50 mg",  "5 ml (10 mg/ml)",   "hydrocortisone-iv"],
+      30: ["75 mg",  "7.5 ml (10 mg/ml)", "hydrocortisone-iv"],
+      40: ["100 mg", "10 ml (10 mg/ml)",  "hydrocortisone-iv"],
+    }},
+    { name: "Hydrocortisone IM", bands: {
+       5: ["10 mg",  "0.2 ml (undiluted)", null],
+      10: ["25 mg",  "0.5 ml (undiluted)", null],
+      20: ["50 mg",  "1 ml (undiluted)",   null],
+      30: ["75 mg",  "1.5 ml (undiluted)", null],
+      40: ["100 mg", "2 ml (undiluted)",   null],
+    }},
+    { name: "Ibuprofen liquid PO", bands: {
+       5: ["50 mg",  "2.5 ml (20 mg/ml)", null],
+      10: ["100 mg", "5 ml (20 mg/ml)",   null],
+      20: ["150 mg", "7.5 ml (20 mg/ml)", null],
+      30: ["200 mg", "10 ml (20 mg/ml)",  null],
+      40: ["300 mg", "15 ml (20 mg/ml)",  null],
+    }},
+    { name: "Ibuprofen tablet PO", bands: {
+       5: null,
+      10: ["100 mg", "½ tablet",   null],
+      20: ["100 mg", "½ tablet",   null],
+      30: ["200 mg", "1 tablet",   null],
+      40: ["300 mg", "1½ tablets", null],
+    }},
+    { name: "Ketamine IV (analgesia)", bands: {
+       5: null,
+      10: ["2 mg", "2 ml (1 mg/ml)", "ketamine-iv-analgesia"],
+      20: ["4 mg", "4 ml (1 mg/ml)", "ketamine-iv-analgesia"],
+      30: ["6 mg", "6 ml (1 mg/ml)", "ketamine-iv-analgesia"],
+      40: ["8 mg", "8 ml (1 mg/ml)", "ketamine-iv-analgesia"],
+    }},
+    { name: "Ketamine IV (dissociation)", bands: {
+       5: null,
+      10: ["10 mg", "1 ml (10 mg/ml)", "ketamine-iv-dissociation"],
+      20: ["20 mg", "2 ml (10 mg/ml)", "ketamine-iv-dissociation"],
+      30: ["30 mg", "3 ml (10 mg/ml)", "ketamine-iv-dissociation"],
+      40: ["40 mg", "4 ml (10 mg/ml)", "ketamine-iv-dissociation"],
+    }},
+    { name: "Ketamine IM/PO (analgesia)", bands: {
+       5: null,
+      10: ["5 mg",  "0.05 ml (undiluted)", null],
+      20: ["10 mg", "0.1 ml (undiluted)",  null],
+      30: ["15 mg", "0.15 ml (undiluted)", null],
+      40: ["20 mg", "0.2 ml (undiluted)",  null],
+    }},
+    { name: "Ketamine IM (dissociation)", bands: {
+       5: null,
+      10: ["50 mg",  "0.5 ml (undiluted)", null],
+      20: ["100 mg", "1 ml (undiluted)",   null],
+      30: ["150 mg", "1.5 ml (undiluted)", null],
+      40: ["200 mg", "2 ml (undiluted)",   null],
+    }},
+    { name: "Levetiracetam IV", bands: {
+       5: ["250 mg",  "2.5 ml (100 mg/ml)", "levetiracetam-iv"],
+      10: ["500 mg",  "5 ml (100 mg/ml)",   "levetiracetam-iv"],
+      20: ["1000 mg", "10 ml (100 mg/ml)",  "levetiracetam-iv"],
+      30: ["1500 mg", "15 ml (100 mg/ml)",  "levetiracetam-iv"],
+      40: ["2000 mg", "20 ml (100 mg/ml)",  "levetiracetam-iv"],
+    }},
+    { name: "1% lignocaine IO", bands: {
+       5: ["5 mg",  "0.5 ml (undiluted)", null],
+      10: ["10 mg", "1 ml (undiluted)",   null],
+      20: ["20 mg", "2 ml (undiluted)",   null],
+      30: ["30 mg", "3 ml (undiluted)",   null],
+      40: ["40 mg", "4 ml (undiluted)",   null],
+    }},
+    { name: "1% lignocaine SC", bands: {
+       5: ["15 mg (max)",  "1.5 ml (max)", null],
+      10: ["30 mg (max)",  "3 ml (max)",   null],
+      20: ["60 mg (max)",  "6 ml (max)",   null],
+      30: ["90 mg (max)",  "9 ml (max)",   null],
+      40: ["120 mg (max)", "12 ml (max)",  null],
+    }},
+    { name: "Loratadine PO", bands: {
+       5: null,
+      10: ["10 mg", "1 tablet",  null],
+      20: ["10 mg", "1 tablet",  null],
+      30: ["10 mg", "1 tablet",  null],
+      40: ["20 mg", "2 tablets", null],
+    }},
+    { name: "Magnesium IV", bands: {
+       5: null,
+      10: null,
+      20: ["4 mmol", "4 ml (1 mmol/ml)", "magnesium-iv"],
+      30: ["6 mmol", "6 ml (1 mmol/ml)", "magnesium-iv"],
+      40: ["8 mmol", "8 ml (1 mmol/ml)", "magnesium-iv"],
+    }},
+    { name: "Metaraminol IV", bands: {
+       5: ["0.05–0.1 mg", "0.5–1 ml (0.1 mg/ml)", "metaraminol-iv"],
+      10: ["0.1–0.2 mg",  "1–2 ml (0.1 mg/ml)",   "metaraminol-iv"],
+      20: ["0.2–0.4 mg",  "2–4 ml (0.1 mg/ml)",   "metaraminol-iv"],
+      30: ["0.3–0.6 mg",  "3–6 ml (0.1 mg/ml)",   "metaraminol-iv"],
+      40: ["0.4–0.8 mg",  "4–8 ml (0.1 mg/ml)",   "metaraminol-iv"],
+    }},
+    { name: "Midazolam IV (seizures)", bands: {
+       5: ["0.5 mg", "0.5 ml (1 mg/ml)", "midazolam-iv"],
+      10: ["1 mg",   "1 ml (1 mg/ml)",   "midazolam-iv"],
+      20: ["2 mg",   "2 ml (1 mg/ml)",   "midazolam-iv"],
+      30: ["3 mg",   "3 ml (1 mg/ml)",   "midazolam-iv"],
+      40: ["4 mg",   "4 ml (1 mg/ml)",   "midazolam-iv"],
+    }},
+    { name: "Midazolam IM (seizures)", bands: {
+       5: ["1 mg", "0.2 ml (undiluted)", null],
+      10: ["2 mg", "0.4 ml (undiluted)", null],
+      20: ["4 mg", "0.8 ml (undiluted)", null],
+      30: ["6 mg", "1.2 ml (undiluted)", null],
+      40: ["8 mg", "1.6 ml (undiluted)", null],
+    }},
+    { name: "Morphine IV", bands: {
+       5: ["0.25 mg", "0.25 ml (1 mg/ml)", "morphine-iv"],
+      10: ["0.5 mg",  "0.5 ml (1 mg/ml)",  "morphine-iv"],
+      20: ["1 mg",    "1 ml (1 mg/ml)",    "morphine-iv"],
+      30: ["1.5 mg",  "1.5 ml (1 mg/ml)",  "morphine-iv"],
+      40: ["2 mg",    "2 ml (1 mg/ml)",    "morphine-iv"],
+    }},
+    { name: "Morphine IM/SC", bands: {
+       5: ["1 mg", "0.1 ml (undiluted)", null],
+      10: ["2 mg", "0.2 ml (undiluted)", null],
+      20: ["4 mg", "0.4 ml (undiluted)", null],
+      30: ["6 mg", "0.6 ml (undiluted)", null],
+      40: ["8 mg", "0.8 ml (undiluted)", null],
+    }},
+    { name: "Naloxone IV", bands: {
+       5: ["0.05 mg",    "0.5 ml (0.1 mg/ml)", "naloxone-iv"],
+      10: ["0.1 mg",     "1 ml (0.1 mg/ml)",   "naloxone-iv"],
+      20: ["0.1–0.2 mg", "1–2 ml (0.1 mg/ml)", "naloxone-iv"],
+      30: ["0.1–0.3 mg", "1–3 ml (0.1 mg/ml)", "naloxone-iv"],
+      40: ["0.1–0.4 mg", "1–4 ml (0.1 mg/ml)", "naloxone-iv"],
+    }},
+    { name: "Naloxone IM", bands: {
+       5: ["0.1 mg", "0.25 ml (undiluted)", null],
+      10: ["0.2 mg", "0.5 ml (undiluted)",  null],
+      20: ["0.4 mg", "1 ml (undiluted)",    null],
+      30: ["0.6 mg", "1.5 ml (undiluted)",  null],
+      40: ["0.8 mg", "2 ml (undiluted)",    null],
+    }},
+    { name: "Ondansetron IV", bands: {
+       5: null,
+      10: ["2 mg", "1 ml (undiluted)", null],
+      20: ["4 mg", "2 ml (undiluted)", null],
+      30: ["6 mg", "3 ml (undiluted)", null],
+      40: ["8 mg", "4 ml (undiluted)", null],
+    }},
+    { name: "Ondansetron IM", bands: {
+       5: null,
+      10: ["1 mg", "0.5 ml (undiluted)", null],
+      20: ["2 mg", "1 ml (undiluted)",   null],
+      30: ["3 mg", "1.5 ml (undiluted)", null],
+      40: ["4 mg", "2 ml (undiluted)",   null],
+    }},
+    { name: "Paracetamol liquid PO", bands: {
+       5: ["75 mg",  "1.5 ml (50 mg/ml)", null],
+      10: ["150 mg", "3 ml (50 mg/ml)",   null],
+      20: ["250 mg", "5 ml (50 mg/ml)",   null],
+      30: ["375 mg", "7.5 ml (50 mg/ml)", null],
+      40: ["500 mg", "10 ml (50 mg/ml)",  null],
+    }},
+    { name: "Paracetamol tablet PO", bands: {
+       5: null,
+      10: null,
+      20: ["250 mg", "½ tablet", null],
+      30: ["250 mg", "½ tablet", null],
+      40: ["500 mg", "1 tablet", null],
+    }},
+    { name: "Prednisolone PO", bands: {
+       5: ["5 mg",  "1 ml (5 mg/ml)", null],
+      10: ["10 mg", "2 ml (5 mg/ml)", null],
+      20: ["20 mg", "4 ml (5 mg/ml)", null],
+      30: ["30 mg", "6 ml (5 mg/ml)", null],
+      40: ["40 mg", "8 ml (5 mg/ml)", null],
+    }},
+    { name: "Prednisone PO", bands: {
+       5: null,
+      10: ["10 mg", "½ tablet",   null],
+      20: ["20 mg", "1 tablet",   null],
+      30: ["30 mg", "1½ tablets", null],
+      40: ["40 mg", "2 tablets",  null],
+    }},
+    { name: "Rocuronium IV", bands: {
+       5: ["5 mg",  "0.5 ml (undiluted)", null],
+      10: ["10 mg", "1 ml (undiluted)",   null],
+      20: ["20 mg", "2 ml (undiluted)",   null],
+      30: ["30 mg", "3 ml (undiluted)",   null],
+      40: ["40 mg", "4 ml (undiluted)",   null],
+    }},
+    { name: "0.75% ropivacaine SC", bands: {
+       5: ["11.25 mg (max)", "1.5 ml (max)", null],
+      10: ["22.5 mg (max)",  "3 ml (max)",   null],
+      20: ["45 mg (max)",    "6 ml (max)",   null],
+      30: ["67.5 mg (max)",  "9 ml (max)",   null],
+      40: ["90 mg (max)",    "12 ml (max)",  null],
+    }},
+    { name: "0.9% sodium chloride IV", bands: {
+       5: ["20 ml/kg", "100 ml", null],
+      10: ["20 ml/kg", "200 ml", null],
+      20: ["20 ml/kg", "400 ml", null],
+      30: ["20 ml/kg", "600 ml", null],
+      40: ["20 ml/kg", "800 ml", null],
+    }},
+    { name: "8.4% sodium bicarbonate", bands: {
+       5: ["10 mmol", "10 ml (1 mmol/ml)", null],
+      10: ["20 mmol", "20 ml (1 mmol/ml)", null],
+      20: ["40 mmol", "40 ml (1 mmol/ml)", null],
+      30: ["60 mmol", "60 ml (1 mmol/ml)", null],
+      40: ["80 mmol", "80 ml (1 mmol/ml)", null],
+    }},
+    { name: "Tranexamic acid IN (epistaxis)", bands: {
+       5: null,
+      10: null,
+      20: ["100 mg", "1 ml (undiluted)", null],
+      30: ["100 mg", "1 ml (undiluted)", null],
+      40: ["200 mg", "2 ml (undiluted)", null],
+    }},
+    { name: "Tranexamic acid IV (non-traumatic bleeding)", bands: {
+       5: ["100 mg", "1 ml (undiluted)", null],
+      10: ["200 mg", "2 ml (undiluted)", null],
+      20: ["400 mg", "4 ml (undiluted)", null],
+      30: ["600 mg", "6 ml (undiluted)", null],
+      40: ["800 mg", "8 ml (undiluted)", null],
+    }},
+    { name: "Tranexamic acid IV (bleeding from trauma)", bands: {
+       5: ["200 mg",  "2 ml (undiluted)",  null],
+      10: ["400 mg",  "4 ml (undiluted)",  null],
+      20: ["800 mg",  "8 ml (undiluted)",  null],
+      30: ["1200 mg", "12 ml (undiluted)", null],
+      40: ["1600 mg", "16 ml (undiluted)", null],
+    }}
+  ]
+};
+
+/* --------------------------------------------------------------------------
+   5. HEMS extensions.
+
+   Calculated on the patient's actual weight, not on the band. Every entry is
+
+     name   the drug, as shown in the left column
+     scope  which crew may give it
+     calc   what to show in the dose column: a function of the weight in kg,
+            and of the age in years where the rule needs it (it may be null,
+            so guard for that). f() trims to two decimals, cap() applies a
+            ceiling — both are defined at the top of this file.
+     rule   the per-kg rule in words, shown when the row is opened
+     prep   how to make it up, shown under the rule
+     flag   optional caution, shown in red under the preparation
+   -------------------------------------------------------------------------- */
+const HEMS = [
+  { name:  "Cefazolin IV (under 12 years)",
+    scope: "Paramedic · ICP · CCP",
+    calc:  w=>`${f(20*w)} mg`,
+    rule:  "20 mg/kg for all patients.",
+    prep:  "1 g ampoule plus about 4 ml 0.9% NaCl, shake until dissolved. Draw up and dilute to 10 ml (100 mg/ml). Discard to the required dose. IV over 1–2 minutes into a running line.",
+    flag:  "Differs from the EAS band table (30 mg/kg). Seek clinical advice on 0800HEMSMD before commencement."
+  },
+  { name:  "Hypertonic saline 3%",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(cap(5*w,250))} ml over 30 min`,
+    rule:  "5 ml/kg over 30 minutes, not exceeding 250 ml.",
+    prep:  "Add 26 ml of 23.4% NaCl to a 250 ml bag of 0.9% NaCl — 276 ml at 3%. Draw the required volume into syringes. Dedicated line; never with blood or blood products. IV or IO."
+  },
+  { name:  "Atropine IV (bradycardia with intubation)",
+    scope: "Paramedic · ICP · CCP",
+    calc:  w=>`${f(20*w)} mcg — ${f(20*w/100)} ml`,
+    rule:  "20 mcg/kg of 100 mcg/ml. May repeat every 10–15 minutes to a maximum total of 40 mcg/kg.",
+    prep:  "Draw 600 mcg into a 10 ml syringe and dilute to 6 ml with 0.9% NaCl — 100 mcg/ml.",
+    flag:  "Consider consultation with 0800HEMSMD."
+  },
+  { name:  "Hydrocortisone IV (asthma)",
+    scope: "Paramedic · ICP · CCP",
+    calc:  w=>`${f(cap(4*w,100))} mg — ${f(cap(4*w,100)/50)} ml`,
+    rule:  "4 mg/kg IV to a maximum of 100 mg. Alternatively 25–50 mg under 5 years, 50–100 mg over 5 years. For adrenal crisis use the national EAS dose.",
+    prep:  "Force the 2 ml sterile water diluent into the vial, shake until dissolved, draw up — 50 mg/ml. Undiluted IV or IM."
+  },
+  { name:  "Promethazine IV/IM (over 5 years)",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(cap(w,12.5))} mg — ${f(cap(w,12.5)/5)} ml`,
+    rule:  "1 mg/kg to a maximum of 12.5 mg, one dose only.",
+    prep:  "50 mg/2 ml ampoule diluted to 10 ml with 0.9% NaCl — 5 mg/ml. IV over 1 minute to avoid hypotension.",
+    flag:  "Contraindicated under 6 years. If IM, deep IM only. Never SC."
+  },
+  { name:  "Cyclizine IV/IM",
+    scope: "Paramedic · ICP · CCP",
+    calc:  (w,a)=>{const c=(a!=null&&a>=6)?50:25;return `${f(cap(.5*w,c))}–${f(cap(w,c))} mg`;},
+    rule:  "0.5–1 mg/kg. Maximum 25 mg at 1–5 years, 50 mg at 6–16 years.",
+    prep:  "Draw up the ampoule — 50 mg/ml. Do not dilute. Slow IV or IM.",
+    flag:  "The ceiling shown depends on the age entered; without an age the 25 mg cap is used."
+  },
+  { name:  "Magnesium IV (asthma)",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(.1*w)} ml (${f(.2*w)} mmol)`,
+    rule:  "0.1 ml/kg of 50% magnesium sulphate (0.2 mmol/kg). Infuse at 80 ml/hr — 20 ml over 15 minutes.",
+    prep:  "Draw up 0.1 ml/kg and dilute to 20 ml with 0.9% NaCl. Not in the same line as sodium bicarbonate or calcium chloride."
+  },
+  { name:  "Adrenaline infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(.1*w)}–${f(w)} ml/hr`,
+    rule:  "1–10 mcg/kg/hr (0.1–1 ml/kg/hr) of 10 mcg/ml, titrated to blood pressure.",
+    prep:  "Draw up 0.5 mg (0.5 ml) adrenaline into a 50 ml syringe and dilute to 50 ml with 0.9% NaCl — 10 mcg/ml."
+  },
+  { name:  "Metaraminol infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(.1*w)}–${f(.2*w)} ml/hr`,
+    rule:  "0.1–0.2 ml/kg/hr of metaraminol 0.1 mg/ml.",
+    prep:  "Add 10 mg (1 ml) metaraminol to a 100 ml bag of 0.9% NaCl. Draw 10 ml into a 10 ml syringe — 0.1 mg/ml.",
+    flag:  "Seek clinical advice on 0800HEMSMD before continuation or commencement."
+  },
+  { name:  "Fentanyl infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(.2*w)}–${f(.4*w)} ml/hr`,
+    rule:  "2–4 mcg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mcg/ml.",
+    prep:  "Draw up 200 mcg (4 ml) into a 20 ml syringe and dilute to 20 ml with 0.9% NaCl — 10 mcg/ml."
+  },
+  { name:  "Fentanyl / ketamine infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
+    rule:  "Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with ketamine 2 mg/kg/hr), up to 0.5 ml/kg/hr.",
+    prep:  "200 mcg fentanyl (4 ml) plus 200 mg ketamine (2 ml) into a 20 or 30 ml syringe, diluted to 20 ml with 0.9% NaCl — fentanyl 10 mcg/ml with ketamine 10 mg/ml."
+  },
+  { name:  "Fentanyl / midazolam infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`start ${f(.2*w)}, max ${f(.5*w)} ml/hr`,
+    rule:  "Start 0.2 ml/kg/hr (fentanyl 2 mcg/kg/hr with midazolam 0.2 mg/kg/hr), up to 0.5 ml/kg/hr.",
+    prep:  "300 mcg fentanyl (6 ml) plus 30 mg midazolam (6 ml) into a 30 or 50 ml syringe, diluted to 30 ml with 0.9% NaCl — fentanyl 10 mcg/ml with midazolam 1 mg/ml."
+  },
+  { name:  "Ketamine infusion",
+    scope: "Paramedic · ICP · CCP",
+    calc:  w=>`load ${f(cap(.25*w,25))} mg · ${f(.5*w)}–${f(w)} ml/hr`,
+    rule:  "Loading dose up to 0.25 mg/kg (max 25 mg) over 15 minutes. Then 0.5 mg/kg/hr, up to 1 mg/kg/hr, of 1 mg/ml.",
+    prep:  "Add 100 mg (1 ml) ketamine to a 100 ml bag of 0.9% NaCl; draw into a 20 or 30 ml syringe — 1 mg/ml.",
+    flag:  "Contraindicated under one year of age."
+  },
+  { name:  "Propofol infusion",
+    scope: "ICP · CCP",
+    calc:  w=>`${f(cap(.2*w,20))}–${f(cap(.4*w,20))} ml/hr`,
+    rule:  "2–4 mg/kg/hr (0.2–0.4 ml/kg/hr) of 10 mg/ml, maximum 20 ml/hr.",
+    prep:  "Draw up 200 mg (20 ml) undiluted — 10 mg/ml.",
+    flag:  "Seek clinical advice on 0800HEMSMD before continuation or commencement."
+  }
+];
+
+/* Drugs carried but not given to children without advice. Shown as a strip
+   under the HEMS table: name, then the note beside it. */
+const CONSULT = [
+  { name: "Noradrenaline",        note: "not for paediatric use" },
+  { name: "Phenylephrine",        note: "not for paediatric use" },
+  { name: "Isoprenaline",         note: "not for paediatric use" },
+  { name: "GTN infusion",         note: "not for paediatric use" },
+  { name: "Hydralazine",          note: "not for paediatric use" },
+  { name: "Amiodarone infusion",  note: "not for paediatric use" },
+  { name: "Labetalol",            note: "consult 0800HEMSMD" },
+  { name: "Calcium chloride",     note: "consult 0800HEMSMD" },
+  { name: "Heparin",              note: "consult 0800HEMSMD" },
+  { name: "Insulin",              note: "consult 0800HEMSMD" }
+];
+
+/* --------------------------------------------------------------------------
+   6. Rapid sequence intubation.
+
+   Supplied by the user and in neither source document. Each entry is a flat
+   per-kg dose on the actual weight: the rule shown beside the name and the
+   figure in the dose column are both built from `perKg` and `unit`, so a
+   change to the dose is a change to one number.
+   -------------------------------------------------------------------------- */
+const RSI = [
+  { name: "Ketamine IV",    perKg: 2, unit: "mg"  },
+  { name: "Rocuronium IV",  perKg: 2, unit: "mg"  },
+  { name: "Fentanyl IV",    perKg: 2, unit: "mcg" }
+];
+
+/* --------------------------------------------------------------------------
+   7. Vital signs by age.
+
+   `under` is the exclusive upper age in years: the first row whose `under`
+   the age falls below is the one highlighted. The last row is the catch-all
+   and carries `under: null`, so the ages and the labels can never drift apart.
+   -------------------------------------------------------------------------- */
+const VITALS = [
+  { age: "Under 1 year",  under: 1,    hr: "110–160", rr: "30–40", sbp: "70–90" },
+  { age: "1–2 years",     under: 2,    hr: "100–150", rr: "25–35", sbp: "80–95" },
+  { age: "2–5 years",     under: 5,    hr: "95–140", rr: "25–30", sbp: "80–100" },
+  { age: "5–12 years",    under: 12,   hr: "80–120", rr: "20–25", sbp: "90–110" },
+  { age: "Over 12 years", under: null, hr: "60–100", rr: "15–20", sbp: "100–120" }
+];
+
+/* --------------------------------------------------------------------------
+   8. Estimation formulae.
+
+   The functions are what the app actually calculates with; `cards` is what it
+   prints in the Estimation formulae section. Change a formula and change its
+   card next to it, so the two can be seen to agree.
+   -------------------------------------------------------------------------- */
+const FORMULAE = {
+  /* Weight in kg from age in years, used when no weight has been entered.
+     Returns null when the age is outside the range the formulae cover. */
+  weightFromAge: a => a < 1 ? 5 : a <= 10 ? (a + 4) * 2 : a <= 14 ? a * 3 : null,
+
+  /* Cuffed ETT internal diameter, and length at the lips, from age in years
+     (weight in kg is used for the newborn length). */
+  ettSize:   (a, w) => a < 1 ? "3–4 mm" : f(a / 4 + 3.5) + " mm",
+  ettLength: (a, w) => a < 1 ? `${f(6 + w)} cm newborn · ETT size × 3`
+                             : f(a / 2 + 12) + " cm",
+
+  cards: [
+    { label: "Weight, under 1 year",            value: "5 kg"            },
+    { label: "Weight, 1–10 years",              value: "(age + 4) × 2"   },
+    { label: "Weight, 11–14 years",             value: "age × 3"         },
+    { label: "Cuffed ETT, 1 year and over",     value: "(age ÷ 4) + 3.5" },
+    { label: "Length at lips, newborn",         value: "6 + weight"      },
+    { label: "Length at lips, 1 year and over", value: "(age ÷ 2) + 12"  }
+  ]
+};
+
+/* =============================== END OF DATA ==============================
+   Below this line is the machinery that draws the data above. It is written
+   so that it never needs to change when a dose does.
+   =========================================================================== */
+
+/* Preparations are numbered by their position in PREPS, so that inserting one
+   renumbers the rest by itself. */
+const PREP_NO = {};
+Object.keys(PREPS).forEach((id, i) => { PREP_NO[id] = i + 1; });
+
+/* A quick read over the data on load. It cannot tell whether a dose is right,
+   only whether the table is put together the way the rest of the file expects.
+   Anything it finds is listed in a banner at the top of the screen. */
+function checkData(){
+  const problems = [], seen = new Set();
+  for(const [section, rows] of Object.entries(EAS)){
+    rows.forEach(r => {
+      const where = `EAS.${section} “${r.name}”`;
+      if(!r.name) problems.push(`${section}: a row has no name.`);
+      if(seen.has(r.name)) problems.push(`${where} appears twice.`);
+      seen.add(r.name);
+      BANDS.forEach(b => {
+        if(!(b.kg in r.bands)) problems.push(`${where} has no ${b.kg} kg band — use null if it is not published at that weight.`);
+      });
+      Object.entries(r.bands).forEach(([kg, cell]) => {
+        if(cell === null) return;
+        if(!Array.isArray(cell) || cell.length !== 3){
+          problems.push(`${where}, ${kg} kg: expected [dose, volume, preparation id] or null.`);
+          return;
+        }
+        const id = cell[2];
+        if(id != null && !PREPS[id]) problems.push(`${where}, ${kg} kg: no preparation called “${id}”.`);
+      });
+    });
+  }
+  const used = new Set();
+  Object.values(EAS).forEach(rows => rows.forEach(r =>
+    Object.values(r.bands).forEach(c => { if(c && c[2]) used.add(c[2]); })));
+  Object.keys(PREPS).forEach(id => {
+    if(!used.has(id)) problems.push(`Preparation “${id}” is never used by any drug.`);
+  });
+  const hems = new Set();
+  HEMS.forEach(r => {
+    if(hems.has(r.name)) problems.push(`HEMS “${r.name}” appears twice.`);
+    hems.add(r.name);
+    if(typeof r.calc !== "function") problems.push(`HEMS “${r.name}” has no calc function.`);
+  });
+  if(VITALS.length && VITALS[VITALS.length - 1].under !== null)
+    problems.push("The last VITALS row must have under: null so that every age matches a row.");
+  return problems;
+}
+const DATA_PROBLEMS = checkData();
+if(DATA_PROBLEMS.length) console.warn("Data problems:\n" + DATA_PROBLEMS.join("\n"));
 
 /* ---------- state ---------- */
 const $ = s => document.querySelector(s);
 const state = { weight:null, age:null, q:"", open:null, openH:null, editing:false };
 
-function bandFor(w){ if(w==null||!(w>0)) return null; if(w>40) return "adult"; for(const b of [5,10,20,30,40]) if(w<=b) return b; return 40; }
-function vitalsFor(a){ if(a==null||isNaN(a)) return null; if(a<1) return 0; if(a<2) return 1; if(a<5) return 2; if(a<12) return 3; return 4; }
+const TOP_BAND = BANDS[BANDS.length-1];
+const bandAge = kg => (BANDS.find(b=>b.kg===kg)||{}).age || "";
+
+/* Round a weight up into the first band it fits; anything above the top band
+   is an adult. */
+function bandFor(w){
+  if(w==null||!(w>0)) return null;
+  if(w>TOP_BAND.kg) return "adult";
+  for(const b of BANDS) if(w<=b.kg) return b.kg;
+  return TOP_BAND.kg;
+}
+/* Index of the VITALS row an age falls in; the last row catches everything. */
+function vitalsFor(a){
+  if(a==null||isNaN(a)) return null;
+  const i = VITALS.findIndex(r=>r.under!=null && a<r.under);
+  return i===-1 ? VITALS.length-1 : i;
+}
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
 /* ---------- render ---------- */
 function rowHTML(r, band, sec){
-  const cell = r.v[band];
-  const key = sec+"|"+r.n;
-  if(!cell) return `<div class="row"><span class="name">${esc(r.n)}</span><span class="none">Not in table at this weight</span></div>`;
-  const [dose, vol, dil] = cell;
+  const cell = r.bands[band];
+  const key = sec+"|"+r.name;
+  if(!cell) return `<div class="row"><span class="name">${esc(r.name)}</span><span class="none">Not in table at this weight</span></div>`;
+  const [dose, vol, prepId] = cell;
+  const prep = prepId ? PREPS[prepId] : null;
+  const no = prep ? PREP_NO[prepId] : null;
   const open = state.open===key;
   return `<div class="row">
-    <span class="name">${esc(r.n)}</span>
+    <span class="name">${esc(r.name)}</span>
     <span class="dose">${esc(dose)}</span>
     ${vol?`<span class="vol">${esc(vol)}</span>`:""}
-    ${dil?`<button class="dil" type="button" data-key="${esc(key)}" data-dil="${dil}" aria-expanded="${open}" aria-label="Preparation ${dil} for ${esc(r.n)}">${dil}</button>`:""}
-    ${open&&dil?`<div class="detail"><h4>${esc(DIL[dil][0])}</h4><p>${esc(DIL[dil][1])}</p></div>`:""}
+    ${prep?`<button class="dil" type="button" data-key="${esc(key)}" data-dil="${no}" aria-expanded="${open}" aria-label="Preparation ${no} for ${esc(r.name)}">${no}</button>`:""}
+    ${open&&prep?`<div class="detail"><h4>${esc(prep.title)}</h4><p>${esc(prep.steps)}</p></div>`:""}
   </div>`;
 }
 
@@ -350,11 +1069,18 @@ function section(id, cls, title, sub, body){
   return `<section id="s-${id}" class="${cls}"><h2><i></i>${title}</h2>${sub?`<p class="sub">${sub}</p>`:""}${body}</section>`;
 }
 
+/* The weight buttons come from BANDS, so a change there changes the row. */
+function buildChips(){
+  const html = BANDS.map(b=>`<button class="chip" type="button" data-band="${b.kg}">${b.kg}<small>${b.chip}</small></button>`);
+  html.push(`<button class="chip" type="button" data-band="adult">${ADULT.label}<small>${ADULT.chip}</small></button>`);
+  $(".chips").innerHTML = html.join("");
+}
+
 function render(){
   const w = state.weight, a = state.age, band = bandFor(w);
   const has = band!==null, adult = band==="adult";
   const q = state.q.trim().toLowerCase();
-  const match = r => !q || r.n.toLowerCase().includes(q);
+  const match = r => !q || r.name.toLowerCase().includes(q);
 
   // chips
   document.querySelectorAll(".chip").forEach(c=>{
@@ -364,69 +1090,66 @@ function render(){
 
   // readout
   let ro = "";
-  if(!has){ ro = `<span class="note">Tap a band, or enter a weight or age.</span>`; }
-  else if(adult){ ro = `<span class="big">Adult</span><span class="note">Over 40 kg — adult doses usually apply. Use judgement where a dose could harm, e.g. paracetamol. If in doubt, give the paediatric dose.</span>`; }
+  if(!has){ ro = `<span class="note">${TEXT.noWeight}</span>`; }
+  else if(adult){ ro = `<span class="big">${ADULT.label}</span><span class="note">${ADULT.note}</span>`; }
   else {
-    const est = state.fromAge ? `Age ${f(a)} → estimated <b>${f(w)} kg</b> (formula tends to underestimate). ` : "";
-    ro = `<span class="big">${band}<small>kg band</small></span><span class="note">${est}<b>${f(w)} kg</b> rounded up to the ${band} kg band, ${BAND_AGE[band]}. HEMS and RSI use the actual ${f(w)} kg.${w<5?" <b>Neonate</b> — low threshold for clinical advice.":""}</span>`;
+    const est = state.fromAge ? TEXT.ageEstimate(f(a), f(w)) : "";
+    ro = `<span class="big">${band}<small>kg band</small></span><span class="note">${est}${TEXT.bandReadout(band, f(w), bandAge(band))}${w<NEONATE_KG?TEXT.neonate:""}</span>`;
   }
   $("#readout").innerHTML = ro;
-  $("#slimBig").innerHTML = !has?"":adult?"Adult":`${band}<small>kg band</small>`;
-  $("#slimMeta").textContent = !has?"No weight entered":adult?"over 40 kg":`${f(w)} kg · ${BAND_AGE[band]}${q?" · “"+state.q+"”":""}`;
+  $("#slimBig").innerHTML = !has?"":adult?ADULT.label:`${band}<small>kg band</small>`;
+  $("#slimMeta").textContent = !has?TEXT.noWeightMeta:adult?TEXT.adultMeta(TOP_BAND.kg):`${f(w)} kg · ${bandAge(band)}${q?" · “"+state.q+"”":""}`;
   $("#slimBtn").textContent = has?"Change":"Enter weight";
 
   // main
-  let html = "";
+  let html = DATA_PROBLEMS.length
+    ? `<div class="databad"><h3>${TEXT.dataProblems}</h3><ul>${DATA_PROBLEMS.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></div>`
+    : "";
   if(!has){
-    html = `<div class="empty">Doses appear here once a weight or age is entered.</div>
-      <div class="warn">Uncontrolled copy. Check values against the current guideline at cpg.stjohn.org.nz. EAS doses are published band values, not per-kg calculations.</div>`;
+    html += `<div class="empty">${TEXT.empty}</div>
+      <div class="warn">${META.disclaimer}</div>`;
   } else {
     if(!adult){
-      html += section("arrest","arrest","Cardiac arrest","Defibrillation 4 J/kg, initial and subsequent. If the level is unavailable, select the next highest.",
+      html += section("arrest","arrest",TEXT.arrestTitle,TEXT.arrestNote,
         `<div class="card">${EAS.arrest.map(r=>rowHTML(r,band,"ar")).join("")}</div>`);
       let airExtra = "";
       if(a!=null && !isNaN(a)){
-        const size = a<1?"3–4 mm":f(a/4+3.5)+" mm";
-        const len = a<1?(`${f(6+w)} cm newborn · ETT size × 3`):f(a/2+12)+" cm";
+        const size = FORMULAE.ettSize(a,w);
+        const len = FORMULAE.ettLength(a,w);
         airExtra = `<div class="grid" style="margin-top:8px"><div class="card"><h3>ETT size from age</h3><div class="big">${size}</div></div><div class="card"><h3>Length at lips from age</h3><div class="big">${len}</div></div></div>`;
       }
-      html += section("airway","","Airway","Children may need a different size than predicted.",
+      html += section("airway","",TEXT.airwayTitle,TEXT.airwayNote,
         `<div class="card">${EAS.airway.map(r=>rowHTML(r,band,"aw")).join("")}</div>${airExtra}`);
       const drugs = EAS.drugs.filter(match);
-      html += section("drugs","","Drugs — EAS 7.2 band table",`Published values for the ${band} kg band. Tap a number for preparation.`,
-        `<div class="card">${drugs.length?drugs.map(r=>rowHTML(r,band,"dr")).join(""):`<div class="row"><span class="none">Nothing matches “${esc(state.q)}”.</span></div>`}</div>`);
+      html += section("drugs","",TEXT.drugsTitle,TEXT.drugsNote(band),
+        `<div class="card">${drugs.length?drugs.map(r=>rowHTML(r,band,"dr")).join(""):`<div class="row"><span class="none">${TEXT.noMatch(esc(state.q))}</span></div>`}</div>`);
     }
-    html += section("rsi","rsi","Rapid sequence intubation",`Calculated on ${f(w)} kg. These per-kg figures were supplied by you and are in neither source document — confirm against the RSI guideline.`,
-      `<div class="card">${RSI.map(([n,c,rule])=>`<div class="row"><span class="name">${n} <span class="vol">${rule}</span></span><span class="dose">${c(w)}</span></div>`).join("")}</div>`);
+    html += section("rsi","rsi",TEXT.rsiTitle,TEXT.rsiNote(f(w)),
+      `<div class="card">${RSI.map(d=>`<div class="row"><span class="name">${d.name} <span class="vol">${d.perKg} ${d.unit}/kg</span></span><span class="dose">${f(d.perKg*w)} ${d.unit}</span></div>`).join("")}</div>`);
     const hems = HEMS.filter(match);
-    html += section("hems","hems","HEMS extensions",`Calculated on the actual ${f(w)} kg, not the band. Tap a row for rule and preparation.`,
-      `<div class="card">${hems.length?hems.map(r=>{const open=state.openH===r.n;return `<div class="row">
-        <span class="name">${esc(r.n)}<br><span class="scope">${esc(r.scope)}</span></span>
+    html += section("hems","hems",TEXT.hemsTitle,TEXT.hemsNote(f(w)),
+      `<div class="card">${hems.length?hems.map(r=>{const open=state.openH===r.name;return `<div class="row">
+        <span class="name">${esc(r.name)}<br><span class="scope">${esc(r.scope)}</span></span>
         <span class="dose">${esc(r.calc(w,a))}</span>
-        <button class="dil" type="button" data-hems="${esc(r.n)}" aria-expanded="${open}" aria-label="Details for ${esc(r.n)}">${open?"–":"+"}</button>
+        <button class="dil" type="button" data-hems="${esc(r.name)}" aria-expanded="${open}" aria-label="Details for ${esc(r.name)}">${open?"–":"+"}</button>
         ${open?`<div class="detail"><h4>Rule</h4><p>${esc(r.rule)}</p><h4>Preparation</h4><p>${esc(r.prep)}</p>${r.flag?`<p class="flag">${esc(r.flag)}</p>`:""}</div>`:""}
-      </div>`;}).join(""):`<div class="row"><span class="none">Nothing matches “${esc(state.q)}”.</span></div>`}</div>
-      <div class="consult">${CONSULT.map(([n,s])=>`<span><b>${n}</b> — ${s}</span>`).join("")}</div>`);
+      </div>`;}).join(""):`<div class="row"><span class="none">${TEXT.noMatch(esc(state.q))}</span></div>`}</div>
+      <div class="consult">${CONSULT.map(c=>`<span><b>${c.name}</b> — ${c.note}</span>`).join("")}</div>`);
     const vi = vitalsFor(a);
-    html += section("vitals","","Vital signs", vi==null?"Enter an age to highlight a row.":"",
-      `<table><thead><tr><th>Age</th><th>Heart rate</th><th>Resp rate</th><th>Systolic BP</th></tr></thead><tbody>${VITALS.map((r,i)=>`<tr class="${i===vi?"hit":""}">${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
-    html += section("formulae","","Estimation formulae","",
+    html += section("vitals","",TEXT.vitalsTitle, vi==null?TEXT.vitalsNote:"",
+      `<table><thead><tr><th>Age</th><th>Heart rate</th><th>Resp rate</th><th>Systolic BP</th></tr></thead><tbody>${VITALS.map((r,i)=>`<tr class="${i===vi?"hit":""}">${[r.age,r.hr,r.rr,r.sbp].map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+    html += section("formulae","",TEXT.formulaeTitle,"",
       `<div class="grid">
-        <div class="card"><h3>Weight, under 1 year</h3><div class="big">5 kg</div></div>
-        <div class="card"><h3>Weight, 1–10 years</h3><div class="big">(age + 4) × 2</div></div>
-        <div class="card"><h3>Weight, 11–14 years</h3><div class="big">age × 3</div></div>
-        <div class="card"><h3>Cuffed ETT, 1 year and over</h3><div class="big">(age ÷ 4) + 3.5</div></div>
-        <div class="card"><h3>Length at lips, newborn</h3><div class="big">6 + weight</div></div>
-        <div class="card"><h3>Length at lips, 1 year and over</h3><div class="big">(age ÷ 2) + 12</div></div>
+        ${FORMULAE.cards.map(c=>`<div class="card"><h3>${c.label}</h3><div class="big">${c.value}</div></div>`).join("\n        ")}
       </div>`);
-    html += `<div class="warn">Uncontrolled copy. Check values against the current guideline at cpg.stjohn.org.nz. EAS doses are published band values, not per-kg calculations.</div>`;
+    html += `<div class="warn">${META.disclaimer}</div>`;
   }
   html += `<footer>
-    <p>CPG EAS 7.2 Paediatric Equipment and Drug Doses, St John New Zealand, version 1.0.5 (28 Oct 2024), export dated 03 Aug 2026. HEMS Clinical Ltd CPG Extensions to Standing Orders, version 1, 26 Jun 2026.</p>
-    <p>The EAS tables do not carry all administration information; read with the medicines section of the comprehensive edition. Infant GCS omitted — not legible in the supplied file.</p>
-    <p>Created by T Dale. This has not been cross referenced or validated. Not for operational use at this time.</p>
-    <p>Last updated: 05/09/2026</p> 
-    <p>Weight is deliberately not remembered between openings.</p>
+    <p>${META.easSource} ${META.hemsSource}</p>
+    <p>${META.scopeNote}</p>
+    <p>${META.authorNote}</p>
+    <p>Last updated: ${META.lastUpdated}</p> 
+    <p>${META.storageNote}</p>
   </footer>`;
   $("#main").innerHTML = html;
   $("#nav").hidden = !has || adult;
@@ -434,7 +1157,7 @@ function render(){
 
 /* ---------- events ---------- */
 function setFromWeight(v){ state.fromAge=false; state.weight = v===""?null:parseFloat(v); render(); }
-function estimate(a){ if(a==null||isNaN(a)) return null; if(a<1) return 5; if(a<=10) return (a+4)*2; if(a<=14) return a*3; return null; }
+function estimate(a){ if(a==null||isNaN(a)) return null; return FORMULAE.weightFromAge(a); }
 
 $("#w").addEventListener("input", e=>{ setFromWeight(e.target.value); });
 $("#a").addEventListener("input", e=>{
@@ -443,11 +1166,13 @@ $("#a").addEventListener("input", e=>{
   render();
 });
 $("#q").addEventListener("input", e=>{ state.q=e.target.value; render(); });
+buildChips();
 document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click", ()=>{
   const b = c.dataset.band;
-  const w = b==="adult"?45:Number(b);
+  const w = b==="adult"?ADULT.weight:Number(b);
   $("#w").value = w; state.fromAge=false; state.weight=w; render();
 }));
+
 $("#main").addEventListener("click", e=>{
   const d = e.target.closest(".dil"); if(!d) return;
   if(d.dataset.key!=null){ state.open = state.open===d.dataset.key?null:d.dataset.key; }
