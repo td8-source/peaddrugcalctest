@@ -20,9 +20,9 @@ there. The block is in numbered sections:
 | 1 | `META`, `TEXT` | update a source document version or the footer; reword a heading or a note |
 | 2 | `BANDS`, `ADULT` | change a weight band, its label, or the age wording beside it |
 | 3 | `PREPS` | add or reword a preparation (the recipes behind the numbered buttons) |
-| 4 | `EAS` | the band dose tables — arrest, airway, drugs |
-| 5 | `HEMS`, `CONSULT` | the per-kg HEMS extensions and the advice-only strip |
-| 6 | `RSI` | the RSI per-kg doses |
+| 4 | `EAS` | the band dose tables — arrest, airway, drugs — and each drug's adult dose |
+| 5 | `HEMS`, `CONSULT` | the HEMS extensions (paediatric and adult) and the advice-only strip |
+| 6 | `RSI` | the RSI per-kg doses, caps and adult rounding (EAS 9.3) |
 | 7 | `VITALS` | vital signs by age |
 | 8 | `FORMULAE` | the estimation formulae, and the cards that print them |
 
@@ -44,6 +44,30 @@ knowing before you start:
   The three columns are the bold dose, the small grey line beside it, and the
   preparation id. `null` for a whole band means the drug is not published at
   that weight and the row will say so.
+
+- **Adult doses** sit on the same row, in an `adult:` line after the bands.
+  They come from the EAS medicines section and guidelines rather than the 7.2
+  table. Most are fixed and look just like a band line; the few that EAS gives
+  per kg, or that change at a weight (paracetamol over 80 kg, say), are a
+  `{ rule, calc }` pair instead:
+
+  ```js
+    adult: { rule: "0.2 mg/kg, max 20 mg",
+             calc: w => { const d = cap(.2*w, 20);
+               return [`${f(d)} mg`, `${f(d)} ml (1 mg/ml)`, null]; } },
+  ```
+
+  Until a weight is typed in, the row shows the rule. Every row needs an
+  `adult:` line (`null` where EAS gives no adult dose), and each HEMS entry an
+  `adult:` block (`null` for children only), so a forgotten one shows up in
+  the red banner. The Adult button enters no weight of its own.
+
+- **Adult preparations** that differ from the paediatric recipe are marked
+  `adult: true` in `PREPS` and numbered separately (A1, A2…), so the paediatric
+  numbers keep matching the dilution numbers in the 7.2 table.
+
+- **Source documents** are kept in `docs/`: `EAS.pdf` (the full EAS CPG
+  export) and `HEMS CPG extensions.pdf`.
 
 - **Preparations are referred to by id, never by number.** The number on the
   button is just the entry's position in `PREPS`, so a new preparation can be
